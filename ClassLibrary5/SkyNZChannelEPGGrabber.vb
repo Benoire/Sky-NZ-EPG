@@ -1306,7 +1306,7 @@ Public Class SkyGrabber
             RaiseEvent OnMessage("", False)
             Dim pair As KeyValuePair(Of Integer, Sky_Channel)
             For Each pair In Channels
-                Dim currentDetail As TuningDetail = Nothing
+                Dim currentDetail As TuningDetail ' = Nothing
                 ChannelsAdded += 1
                 RaiseEvent OnMessage("(" & ChannelsAdded & "/" & Channels.Count & ") Channels sorted", True)
                 Dim ScannedChannel As Sky_Channel = pair.Value
@@ -1314,7 +1314,6 @@ Public Class SkyGrabber
                 If ChannelId < 1 Then
                     Continue For
                 End If
-                Dim channel As New DVBSChannel
                 If ScannedChannel.NID = 0 Or ScannedChannel.TID = 0 Or ScannedChannel.SID = 0 Then
                     Continue For
                 End If
@@ -1572,7 +1571,7 @@ label_something6:
         Catch exception1 As Exception
             ProjectData.SetProjectError(exception1)
             Dim exception As Exception = exception1
-            RaiseEvent OnMessage(exception.Message & "-" & exception.Source & "-" & exception.StackTrace, False)
+            RaiseEvent OnMessage(exception.Message & "-" & exception.Source & "-" & exception.StackTrace & exception.ToString(), False)
             ProjectData.ClearProjectError()
         End Try
     End Sub
