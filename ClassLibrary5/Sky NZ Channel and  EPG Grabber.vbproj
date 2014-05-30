@@ -63,7 +63,7 @@
     <Compile Include="Setup.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SkyUKChannelEPGGrabber.vb" />
+    <Compile Include="SkyNZChannelEPGGrabber.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -105,7 +105,8 @@
     <Reference Include="Common.Utils">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Team MediaPortal\MediaPortal TV Server\Common.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Custom Data Grabber">
+    <Reference Include="Custom Data Grabber, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Team MediaPortal\MediaPortal TV Server\Custom Data Grabber.dll</HintPath>
     </Reference>
     <Reference Include="DirectShowLib">

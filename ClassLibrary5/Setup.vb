@@ -1,4 +1,9 @@
 ﻿
+Imports System.Windows.Forms
+Imports System.ComponentModel
+Imports System.Drawing
+Imports System.IO
+Imports MediaPortal.UserInterface.Controls
 Imports SetupTv
 Imports TvDatabase
 Imports TvControl
@@ -11,73 +16,73 @@ Public Class Setup
     Dim WithEvents Grabber As SkyGrabber
     Dim Settings As New Settings
 
-    Private WithEvents SkyIT_Tab As System.Windows.Forms.TabControl
-    Private WithEvents tabPage1 As System.Windows.Forms.TabPage
-    Private WithEvents skyUKContainer As System.Windows.Forms.GroupBox
-    Private WithEvents groupBox3 As System.Windows.Forms.GroupBox
-    Private WithEvents SkyUK_Region As System.Windows.Forms.ComboBox
-    Private WithEvents groupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents CatText20 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte20 As System.Windows.Forms.TextBox
-    Friend WithEvents Label16 As System.Windows.Forms.Label
-    Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents CatText19 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte19 As System.Windows.Forms.TextBox
-    Friend WithEvents CatText18 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte18 As System.Windows.Forms.TextBox
-    Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents CatText17 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte17 As System.Windows.Forms.TextBox
-    Friend WithEvents CatText16 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte16 As System.Windows.Forms.TextBox
-    Friend WithEvents Label20 As System.Windows.Forms.Label
-    Friend WithEvents CatText15 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte15 As System.Windows.Forms.TextBox
-    Friend WithEvents Label21 As System.Windows.Forms.Label
-    Friend WithEvents Label22 As System.Windows.Forms.Label
-    Friend WithEvents CatText14 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte14 As System.Windows.Forms.TextBox
-    Friend WithEvents CatText13 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte13 As System.Windows.Forms.TextBox
-    Friend WithEvents Label23 As System.Windows.Forms.Label
-    Friend WithEvents Label24 As System.Windows.Forms.Label
-    Friend WithEvents CatText12 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte12 As System.Windows.Forms.TextBox
-    Friend WithEvents CatText11 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte11 As System.Windows.Forms.TextBox
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents CatText9 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte9 As System.Windows.Forms.TextBox
-    Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents CatText7 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte7 As System.Windows.Forms.TextBox
-    Friend WithEvents CatText10 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte10 As System.Windows.Forms.TextBox
-    Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents CatText6 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte6 As System.Windows.Forms.TextBox
-    Friend WithEvents CatText5 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte5 As System.Windows.Forms.TextBox
-    Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents CatText4 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte4 As System.Windows.Forms.TextBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents CatText8 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte8 As System.Windows.Forms.TextBox
-    Friend WithEvents CatText3 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte3 As System.Windows.Forms.TextBox
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents CatText2 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte2 As System.Windows.Forms.TextBox
-    Friend WithEvents CatText1 As System.Windows.Forms.TextBox
-    Friend WithEvents CatByte1 As System.Windows.Forms.TextBox
-    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Private WithEvents SkyIT_Tab As TabControl
+    Private WithEvents tabPage1 As TabPage
+    Private WithEvents skyUKContainer As GroupBox
+    Private WithEvents groupBox3 As GroupBox
+    Private WithEvents SkyUK_Region As ComboBox
+    Private WithEvents groupBox1 As GroupBox
+    Friend WithEvents Label15 As Label
+    Friend WithEvents CatText20 As TextBox
+    Friend WithEvents CatByte20 As TextBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents CatText19 As TextBox
+    Friend WithEvents CatByte19 As TextBox
+    Friend WithEvents CatText18 As TextBox
+    Friend WithEvents CatByte18 As TextBox
+    Friend WithEvents Label18 As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents CatText17 As TextBox
+    Friend WithEvents CatByte17 As TextBox
+    Friend WithEvents CatText16 As TextBox
+    Friend WithEvents CatByte16 As TextBox
+    Friend WithEvents Label20 As Label
+    Friend WithEvents CatText15 As TextBox
+    Friend WithEvents CatByte15 As TextBox
+    Friend WithEvents Label21 As Label
+    Friend WithEvents Label22 As Label
+    Friend WithEvents CatText14 As TextBox
+    Friend WithEvents CatByte14 As TextBox
+    Friend WithEvents CatText13 As TextBox
+    Friend WithEvents CatByte13 As TextBox
+    Friend WithEvents Label23 As Label
+    Friend WithEvents Label24 As Label
+    Friend WithEvents CatText12 As TextBox
+    Friend WithEvents CatByte12 As TextBox
+    Friend WithEvents CatText11 As TextBox
+    Friend WithEvents CatByte11 As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents CatText9 As TextBox
+    Friend WithEvents CatByte9 As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents CatText7 As TextBox
+    Friend WithEvents CatByte7 As TextBox
+    Friend WithEvents CatText10 As TextBox
+    Friend WithEvents CatByte10 As TextBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents Label14 As Label
+    Friend WithEvents CatText6 As TextBox
+    Friend WithEvents CatByte6 As TextBox
+    Friend WithEvents CatText5 As TextBox
+    Friend WithEvents CatByte5 As TextBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents CatText4 As TextBox
+    Friend WithEvents CatByte4 As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents CatText8 As TextBox
+    Friend WithEvents CatByte8 As TextBox
+    Friend WithEvents CatText3 As TextBox
+    Friend WithEvents CatByte3 As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents CatText2 As TextBox
+    Friend WithEvents CatByte2 As TextBox
+    Friend WithEvents CatText1 As TextBox
+    Friend WithEvents CatByte1 As TextBox
+    Friend WithEvents Button4 As Button
     Public Delegate Sub AddLog1(ByVal Value As String, ByVal UpdateLast As Boolean)
     Public Log1 As New AddLog1(AddressOf AddLog)
 
@@ -97,66 +102,66 @@ Public Class Setup
     Public Bool5 As New SetBool5(AddressOf SetBool55)
     Public Delegate Sub SetBool6(ByVal Value As Boolean)
     Public Bool6 As New SetBool6(AddressOf SetBool66)
-    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
-    Friend WithEvents Sun As System.Windows.Forms.CheckBox
-    Friend WithEvents Sat As System.Windows.Forms.CheckBox
-    Friend WithEvents Fri As System.Windows.Forms.CheckBox
-    Friend WithEvents Thu As System.Windows.Forms.CheckBox
-    Friend WithEvents Wed As System.Windows.Forms.CheckBox
-    Friend WithEvents Tue As System.Windows.Forms.CheckBox
-    Friend WithEvents Mon As System.Windows.Forms.CheckBox
-    Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents CheckBox6 As System.Windows.Forms.CheckBox
-    Friend WithEvents CheckBox5 As System.Windows.Forms.CheckBox
-    Friend WithEvents CheckBox4 As System.Windows.Forms.CheckBox
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
-    Friend WithEvents DateTimePicker1 As System.Windows.Forms.DateTimePicker
-    Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
-    Friend WithEvents TabPage4 As System.Windows.Forms.TabPage
-    Friend WithEvents ChannelMap As System.Windows.Forms.CheckedListBox
-    Private WithEvents MpGroupBox2 As MediaPortal.UserInterface.Controls.MPGroupBox
-    Private WithEvents MpGroupBox1 As MediaPortal.UserInterface.Controls.MPGroupBox
-    Private WithEvents MpLabel1 As MediaPortal.UserInterface.Controls.MPLabel
-    Private WithEvents mpDisEqc1 As MediaPortal.UserInterface.Controls.MPComboBox
-    Private WithEvents MpLabel6 As MediaPortal.UserInterface.Controls.MPLabel
-    Private WithEvents MpComboBox1 As MediaPortal.UserInterface.Controls.MPComboBox
-    Private WithEvents MpLabel8 As MediaPortal.UserInterface.Controls.MPLabel
-    Private WithEvents MpComboBox2 As MediaPortal.UserInterface.Controls.MPComboBox
-    Private WithEvents MpLabel3 As MediaPortal.UserInterface.Controls.MPLabel
-    Private WithEvents TextBox4 As System.Windows.Forms.TextBox
-    Private WithEvents MpLabel4 As MediaPortal.UserInterface.Controls.MPLabel
-    Private WithEvents TextBox5 As System.Windows.Forms.TextBox
-    Private WithEvents TextBox6 As System.Windows.Forms.TextBox
-    Private WithEvents MpLabel5 As MediaPortal.UserInterface.Controls.MPLabel
-    Private WithEvents TextBox10 As System.Windows.Forms.TextBox
-    Private WithEvents MpLabel9 As MediaPortal.UserInterface.Controls.MPLabel
-    Private WithEvents MpLabel10 As MediaPortal.UserInterface.Controls.MPLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.Panel
-    Friend WithEvents TabPage5 As System.Windows.Forms.TabPage
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents TabPage6 As System.Windows.Forms.TabPage
-    Friend WithEvents Panel2 As System.Windows.Forms.Panel
-    Private WithEvents CheckBox8 As System.Windows.Forms.CheckBox
-    Private WithEvents CheckBox7 As System.Windows.Forms.CheckBox
-    Private WithEvents CheckBox3 As System.Windows.Forms.CheckBox
-    Private WithEvents label8 As System.Windows.Forms.Label
-    Private WithEvents CheckBox2 As System.Windows.Forms.CheckBox
-    Private WithEvents chk_DeleteOld As System.Windows.Forms.RadioButton
-    Private WithEvents CheckBox1 As System.Windows.Forms.CheckBox
-    Private WithEvents chk_MoveOld As System.Windows.Forms.RadioButton
-    Private WithEvents txt_Move_Old_Group As System.Windows.Forms.TextBox
-    Private WithEvents chk_AutoUpdate As System.Windows.Forms.CheckBox
-    Private WithEvents chk_SkyCategories As System.Windows.Forms.CheckBox
-    Private WithEvents chk_SkyNumbers As System.Windows.Forms.CheckBox
-    Private WithEvents chk_SkyRegions As System.Windows.Forms.CheckBox
-    Private WithEvents tabPage3 As System.Windows.Forms.TabPage
-    Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents NumericUpDown2 As System.Windows.Forms.NumericUpDown
-    Private WithEvents listViewStatus As System.Windows.Forms.ListView
-    Private WithEvents columnHeader1 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Private WithEvents CheckBox9 As System.Windows.Forms.CheckBox
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents Sun As CheckBox
+    Friend WithEvents Sat As CheckBox
+    Friend WithEvents Fri As CheckBox
+    Friend WithEvents Thu As CheckBox
+    Friend WithEvents Wed As CheckBox
+    Friend WithEvents Tue As CheckBox
+    Friend WithEvents Mon As CheckBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents CheckBox6 As CheckBox
+    Friend WithEvents CheckBox5 As CheckBox
+    Friend WithEvents CheckBox4 As CheckBox
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents NumericUpDown1 As NumericUpDown
+    Friend WithEvents TabPage4 As TabPage
+    Friend WithEvents ChannelMap As CheckedListBox
+    Private WithEvents MpGroupBox2 As MPGroupBox
+    Private WithEvents MpGroupBox1 As MPGroupBox
+    Private WithEvents MpLabel1 As MPLabel
+    Private WithEvents mpDisEqc1 As MPComboBox
+    Private WithEvents MpLabel6 As MPLabel
+    Private WithEvents MpComboBox1 As MPComboBox
+    Private WithEvents MpLabel8 As MPLabel
+    Private WithEvents MpComboBox2 As MPComboBox
+    Private WithEvents MpLabel3 As MPLabel
+    Private WithEvents TextBox4 As TextBox
+    Private WithEvents MpLabel4 As MPLabel
+    Private WithEvents TextBox5 As TextBox
+    Private WithEvents TextBox6 As TextBox
+    Private WithEvents MpLabel5 As MPLabel
+    Private WithEvents TextBox10 As TextBox
+    Private WithEvents MpLabel9 As MPLabel
+    Private WithEvents MpLabel10 As MPLabel
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents TabPage5 As TabPage
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TabPage6 As TabPage
+    Friend WithEvents Panel2 As Panel
+    Private WithEvents CheckBox8 As CheckBox
+    Private WithEvents CheckBox7 As CheckBox
+    Private WithEvents CheckBox3 As CheckBox
+    Private WithEvents label8 As Label
+    Private WithEvents CheckBox2 As CheckBox
+    Private WithEvents chk_DeleteOld As RadioButton
+    Private WithEvents CheckBox1 As CheckBox
+    Private WithEvents chk_MoveOld As RadioButton
+    Private WithEvents txt_Move_Old_Group As TextBox
+    Private WithEvents chk_AutoUpdate As CheckBox
+    Private WithEvents chk_SkyCategories As CheckBox
+    Private WithEvents chk_SkyNumbers As CheckBox
+    Private WithEvents chk_SkyRegions As CheckBox
+    Private WithEvents tabPage3 As TabPage
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents NumericUpDown2 As NumericUpDown
+    Private WithEvents listViewStatus As ListView
+    Private WithEvents columnHeader1 As ColumnHeader
+    Friend WithEvents Button1 As Button
+    Private WithEvents CheckBox9 As CheckBox
     Dim regions As New Dictionary(Of Integer, Region)
 
     Public Sub New()
@@ -170,137 +175,137 @@ Public Class Setup
     End Sub
 
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Setup))
-        Me.SkyIT_Tab = New System.Windows.Forms.TabControl()
-        Me.tabPage3 = New System.Windows.Forms.TabPage()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
-        Me.listViewStatus = New System.Windows.Forms.ListView()
-        Me.columnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.TabPage6 = New System.Windows.Forms.TabPage()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.CheckBox9 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox8 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox7 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.label8 = New System.Windows.Forms.Label()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.chk_DeleteOld = New System.Windows.Forms.RadioButton()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.chk_MoveOld = New System.Windows.Forms.RadioButton()
-        Me.txt_Move_Old_Group = New System.Windows.Forms.TextBox()
-        Me.chk_AutoUpdate = New System.Windows.Forms.CheckBox()
-        Me.chk_SkyCategories = New System.Windows.Forms.CheckBox()
-        Me.chk_SkyNumbers = New System.Windows.Forms.CheckBox()
-        Me.chk_SkyRegions = New System.Windows.Forms.CheckBox()
-        Me.tabPage1 = New System.Windows.Forms.TabPage()
-        Me.skyUKContainer = New System.Windows.Forms.GroupBox()
-        Me.groupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.CatText20 = New System.Windows.Forms.TextBox()
-        Me.CatByte20 = New System.Windows.Forms.TextBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.CatText19 = New System.Windows.Forms.TextBox()
-        Me.CatByte19 = New System.Windows.Forms.TextBox()
-        Me.CatText18 = New System.Windows.Forms.TextBox()
-        Me.CatByte18 = New System.Windows.Forms.TextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.CatText17 = New System.Windows.Forms.TextBox()
-        Me.CatByte17 = New System.Windows.Forms.TextBox()
-        Me.CatText16 = New System.Windows.Forms.TextBox()
-        Me.CatByte16 = New System.Windows.Forms.TextBox()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.CatText15 = New System.Windows.Forms.TextBox()
-        Me.CatByte15 = New System.Windows.Forms.TextBox()
-        Me.Label21 = New System.Windows.Forms.Label()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.CatText14 = New System.Windows.Forms.TextBox()
-        Me.CatByte14 = New System.Windows.Forms.TextBox()
-        Me.CatText13 = New System.Windows.Forms.TextBox()
-        Me.CatByte13 = New System.Windows.Forms.TextBox()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.CatText12 = New System.Windows.Forms.TextBox()
-        Me.CatByte12 = New System.Windows.Forms.TextBox()
-        Me.CatText11 = New System.Windows.Forms.TextBox()
-        Me.CatByte11 = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.CatText9 = New System.Windows.Forms.TextBox()
-        Me.CatByte9 = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.CatText7 = New System.Windows.Forms.TextBox()
-        Me.CatByte7 = New System.Windows.Forms.TextBox()
-        Me.CatText10 = New System.Windows.Forms.TextBox()
-        Me.CatByte10 = New System.Windows.Forms.TextBox()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.CatText6 = New System.Windows.Forms.TextBox()
-        Me.CatByte6 = New System.Windows.Forms.TextBox()
-        Me.CatText5 = New System.Windows.Forms.TextBox()
-        Me.CatByte5 = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.CatText4 = New System.Windows.Forms.TextBox()
-        Me.CatByte4 = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.CatText8 = New System.Windows.Forms.TextBox()
-        Me.CatByte8 = New System.Windows.Forms.TextBox()
-        Me.CatText3 = New System.Windows.Forms.TextBox()
-        Me.CatByte3 = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.CatText2 = New System.Windows.Forms.TextBox()
-        Me.CatByte2 = New System.Windows.Forms.TextBox()
-        Me.CatText1 = New System.Windows.Forms.TextBox()
-        Me.CatByte1 = New System.Windows.Forms.TextBox()
-        Me.groupBox3 = New System.Windows.Forms.GroupBox()
-        Me.SkyUK_Region = New System.Windows.Forms.ComboBox()
-        Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.MpGroupBox2 = New MediaPortal.UserInterface.Controls.MPGroupBox()
-        Me.ChannelMap = New System.Windows.Forms.CheckedListBox()
-        Me.MpGroupBox1 = New MediaPortal.UserInterface.Controls.MPGroupBox()
-        Me.MpLabel1 = New MediaPortal.UserInterface.Controls.MPLabel()
-        Me.mpDisEqc1 = New MediaPortal.UserInterface.Controls.MPComboBox()
-        Me.MpLabel6 = New MediaPortal.UserInterface.Controls.MPLabel()
-        Me.MpComboBox1 = New MediaPortal.UserInterface.Controls.MPComboBox()
-        Me.MpLabel8 = New MediaPortal.UserInterface.Controls.MPLabel()
-        Me.MpComboBox2 = New MediaPortal.UserInterface.Controls.MPComboBox()
-        Me.MpLabel3 = New MediaPortal.UserInterface.Controls.MPLabel()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
-        Me.MpLabel4 = New MediaPortal.UserInterface.Controls.MPLabel()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
-        Me.MpLabel5 = New MediaPortal.UserInterface.Controls.MPLabel()
-        Me.TextBox10 = New System.Windows.Forms.TextBox()
-        Me.MpLabel9 = New MediaPortal.UserInterface.Controls.MPLabel()
-        Me.MpLabel10 = New MediaPortal.UserInterface.Controls.MPLabel()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox6 = New System.Windows.Forms.CheckBox()
-        Me.Sun = New System.Windows.Forms.CheckBox()
-        Me.Sat = New System.Windows.Forms.CheckBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Fri = New System.Windows.Forms.CheckBox()
-        Me.Mon = New System.Windows.Forms.CheckBox()
-        Me.Thu = New System.Windows.Forms.CheckBox()
-        Me.Tue = New System.Windows.Forms.CheckBox()
-        Me.Wed = New System.Windows.Forms.CheckBox()
-        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
-        Me.TabPage5 = New System.Windows.Forms.TabPage()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Dim resources As ComponentResourceManager = New ComponentResourceManager(GetType(Setup))
+        Me.SkyIT_Tab = New TabControl()
+        Me.tabPage3 = New TabPage()
+        Me.Label10 = New Label()
+        Me.Label9 = New Label()
+        Me.NumericUpDown2 = New NumericUpDown()
+        Me.listViewStatus = New ListView()
+        Me.columnHeader1 = CType(New ColumnHeader(), ColumnHeader)
+        Me.Button1 = New Button()
+        Me.TabPage6 = New TabPage()
+        Me.Panel2 = New Panel()
+        Me.CheckBox9 = New CheckBox()
+        Me.CheckBox8 = New CheckBox()
+        Me.CheckBox7 = New CheckBox()
+        Me.CheckBox3 = New CheckBox()
+        Me.label8 = New Label()
+        Me.CheckBox2 = New CheckBox()
+        Me.chk_DeleteOld = New RadioButton()
+        Me.CheckBox1 = New CheckBox()
+        Me.chk_MoveOld = New RadioButton()
+        Me.txt_Move_Old_Group = New TextBox()
+        Me.chk_AutoUpdate = New CheckBox()
+        Me.chk_SkyCategories = New CheckBox()
+        Me.chk_SkyNumbers = New CheckBox()
+        Me.chk_SkyRegions = New CheckBox()
+        Me.tabPage1 = New TabPage()
+        Me.skyUKContainer = New GroupBox()
+        Me.groupBox1 = New GroupBox()
+        Me.Button4 = New Button()
+        Me.Label15 = New Label()
+        Me.CatText20 = New TextBox()
+        Me.CatByte20 = New TextBox()
+        Me.Label16 = New Label()
+        Me.Label17 = New Label()
+        Me.CatText19 = New TextBox()
+        Me.CatByte19 = New TextBox()
+        Me.CatText18 = New TextBox()
+        Me.CatByte18 = New TextBox()
+        Me.Label18 = New Label()
+        Me.Label19 = New Label()
+        Me.CatText17 = New TextBox()
+        Me.CatByte17 = New TextBox()
+        Me.CatText16 = New TextBox()
+        Me.CatByte16 = New TextBox()
+        Me.Label20 = New Label()
+        Me.CatText15 = New TextBox()
+        Me.CatByte15 = New TextBox()
+        Me.Label21 = New Label()
+        Me.Label22 = New Label()
+        Me.CatText14 = New TextBox()
+        Me.CatByte14 = New TextBox()
+        Me.CatText13 = New TextBox()
+        Me.CatByte13 = New TextBox()
+        Me.Label23 = New Label()
+        Me.Label24 = New Label()
+        Me.CatText12 = New TextBox()
+        Me.CatByte12 = New TextBox()
+        Me.CatText11 = New TextBox()
+        Me.CatByte11 = New TextBox()
+        Me.Label5 = New Label()
+        Me.CatText9 = New TextBox()
+        Me.CatByte9 = New TextBox()
+        Me.Label11 = New Label()
+        Me.Label12 = New Label()
+        Me.CatText7 = New TextBox()
+        Me.CatByte7 = New TextBox()
+        Me.CatText10 = New TextBox()
+        Me.CatByte10 = New TextBox()
+        Me.Label13 = New Label()
+        Me.Label14 = New Label()
+        Me.CatText6 = New TextBox()
+        Me.CatByte6 = New TextBox()
+        Me.CatText5 = New TextBox()
+        Me.CatByte5 = New TextBox()
+        Me.Label7 = New Label()
+        Me.CatText4 = New TextBox()
+        Me.CatByte4 = New TextBox()
+        Me.Label3 = New Label()
+        Me.Label4 = New Label()
+        Me.CatText8 = New TextBox()
+        Me.CatByte8 = New TextBox()
+        Me.CatText3 = New TextBox()
+        Me.CatByte3 = New TextBox()
+        Me.Label2 = New Label()
+        Me.Label1 = New Label()
+        Me.CatText2 = New TextBox()
+        Me.CatByte2 = New TextBox()
+        Me.CatText1 = New TextBox()
+        Me.CatByte1 = New TextBox()
+        Me.groupBox3 = New GroupBox()
+        Me.SkyUK_Region = New ComboBox()
+        Me.TabPage4 = New TabPage()
+        Me.MpGroupBox2 = New MPGroupBox()
+        Me.ChannelMap = New CheckedListBox()
+        Me.MpGroupBox1 = New MPGroupBox()
+        Me.MpLabel1 = New MPLabel()
+        Me.mpDisEqc1 = New MPComboBox()
+        Me.MpLabel6 = New MPLabel()
+        Me.MpComboBox1 = New MPComboBox()
+        Me.MpLabel8 = New MPLabel()
+        Me.MpComboBox2 = New MPComboBox()
+        Me.MpLabel3 = New MPLabel()
+        Me.TextBox4 = New TextBox()
+        Me.MpLabel4 = New MPLabel()
+        Me.TextBox5 = New TextBox()
+        Me.TextBox6 = New TextBox()
+        Me.MpLabel5 = New MPLabel()
+        Me.TextBox10 = New TextBox()
+        Me.MpLabel9 = New MPLabel()
+        Me.MpLabel10 = New MPLabel()
+        Me.TabPage2 = New TabPage()
+        Me.Panel3 = New Panel()
+        Me.Panel1 = New Panel()
+        Me.NumericUpDown1 = New NumericUpDown()
+        Me.DateTimePicker1 = New DateTimePicker()
+        Me.CheckBox5 = New CheckBox()
+        Me.CheckBox6 = New CheckBox()
+        Me.Sun = New CheckBox()
+        Me.Sat = New CheckBox()
+        Me.Label6 = New Label()
+        Me.Fri = New CheckBox()
+        Me.Mon = New CheckBox()
+        Me.Thu = New CheckBox()
+        Me.Tue = New CheckBox()
+        Me.Wed = New CheckBox()
+        Me.CheckBox4 = New CheckBox()
+        Me.TabPage5 = New TabPage()
+        Me.TextBox1 = New TextBox()
         Me.SkyIT_Tab.SuspendLayout()
         Me.tabPage3.SuspendLayout()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown2, ISupportInitialize).BeginInit()
         Me.TabPage6.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.tabPage1.SuspendLayout()
@@ -313,7 +318,7 @@ Public Class Setup
         Me.TabPage2.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown1, ISupportInitialize).BeginInit()
         Me.TabPage5.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -325,11 +330,11 @@ Public Class Setup
         Me.SkyIT_Tab.Controls.Add(Me.TabPage4)
         Me.SkyIT_Tab.Controls.Add(Me.TabPage2)
         Me.SkyIT_Tab.Controls.Add(Me.TabPage5)
-        Me.SkyIT_Tab.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SkyIT_Tab.Location = New System.Drawing.Point(0, 0)
+        Me.SkyIT_Tab.Dock = DockStyle.Fill
+        Me.SkyIT_Tab.Location = New Point(0, 0)
         Me.SkyIT_Tab.Name = "SkyIT_Tab"
         Me.SkyIT_Tab.SelectedIndex = 0
-        Me.SkyIT_Tab.Size = New System.Drawing.Size(456, 422)
+        Me.SkyIT_Tab.Size = New Size(456, 422)
         Me.SkyIT_Tab.TabIndex = 3
         '
         'tabPage3
@@ -339,10 +344,10 @@ Public Class Setup
         Me.tabPage3.Controls.Add(Me.NumericUpDown2)
         Me.tabPage3.Controls.Add(Me.listViewStatus)
         Me.tabPage3.Controls.Add(Me.Button1)
-        Me.tabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.tabPage3.Location = New Point(4, 22)
         Me.tabPage3.Name = "tabPage3"
-        Me.tabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabPage3.Size = New System.Drawing.Size(448, 396)
+        Me.tabPage3.Padding = New Padding(3)
+        Me.tabPage3.Size = New Size(448, 396)
         Me.tabPage3.TabIndex = 2
         Me.tabPage3.Text = "General"
         Me.tabPage3.UseVisualStyleBackColor = True
@@ -350,40 +355,40 @@ Public Class Setup
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(127, 11)
+        Me.Label10.Location = New Point(127, 11)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(49, 13)
+        Me.Label10.Size = New Size(49, 13)
         Me.Label10.TabIndex = 189
         Me.Label10.Text = "Seconds"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(6, 12)
+        Me.Label9.Location = New Point(6, 12)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(56, 13)
+        Me.Label9.Size = New Size(56, 13)
         Me.Label9.TabIndex = 188
         Me.Label9.Text = "Grab Time"
         '
         'NumericUpDown2
         '
-        Me.NumericUpDown2.Location = New System.Drawing.Point(68, 9)
+        Me.NumericUpDown2.Location = New Point(68, 9)
         Me.NumericUpDown2.Name = "NumericUpDown2"
-        Me.NumericUpDown2.Size = New System.Drawing.Size(53, 20)
+        Me.NumericUpDown2.Size = New Size(53, 20)
         Me.NumericUpDown2.TabIndex = 187
         Me.NumericUpDown2.Value = New Decimal(New Integer() {60, 0, 0, 0})
         '
         'listViewStatus
         '
-        Me.listViewStatus.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.columnHeader1})
-        Me.listViewStatus.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.listViewStatus.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
-        Me.listViewStatus.Location = New System.Drawing.Point(3, 35)
+        Me.listViewStatus.Columns.AddRange(New ColumnHeader() {Me.columnHeader1})
+        Me.listViewStatus.Dock = DockStyle.Bottom
+        Me.listViewStatus.HeaderStyle = ColumnHeaderStyle.None
+        Me.listViewStatus.Location = New Point(3, 35)
         Me.listViewStatus.Name = "listViewStatus"
-        Me.listViewStatus.Size = New System.Drawing.Size(442, 322)
+        Me.listViewStatus.Size = New Size(442, 322)
         Me.listViewStatus.TabIndex = 179
         Me.listViewStatus.UseCompatibleStateImageBehavior = False
-        Me.listViewStatus.View = System.Windows.Forms.View.Details
+        Me.listViewStatus.View = View.Details
         '
         'columnHeader1
         '
@@ -391,10 +396,10 @@ Public Class Setup
         '
         'Button1
         '
-        Me.Button1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Button1.Location = New System.Drawing.Point(3, 357)
+        Me.Button1.Dock = DockStyle.Bottom
+        Me.Button1.Location = New Point(3, 357)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(442, 36)
+        Me.Button1.Size = New Size(442, 36)
         Me.Button1.TabIndex = 0
         Me.Button1.Text = "Grab Now"
         Me.Button1.UseVisualStyleBackColor = True
@@ -402,10 +407,10 @@ Public Class Setup
         'TabPage6
         '
         Me.TabPage6.Controls.Add(Me.Panel2)
-        Me.TabPage6.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage6.Location = New Point(4, 22)
         Me.TabPage6.Name = "TabPage6"
-        Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage6.Size = New System.Drawing.Size(448, 396)
+        Me.TabPage6.Padding = New Padding(3)
+        Me.TabPage6.Size = New Size(448, 396)
         Me.TabPage6.TabIndex = 6
         Me.TabPage6.Text = "Settings"
         Me.TabPage6.UseVisualStyleBackColor = True
@@ -426,18 +431,18 @@ Public Class Setup
         Me.Panel2.Controls.Add(Me.chk_SkyCategories)
         Me.Panel2.Controls.Add(Me.chk_SkyNumbers)
         Me.Panel2.Controls.Add(Me.chk_SkyRegions)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(3, 3)
+        Me.Panel2.Dock = DockStyle.Fill
+        Me.Panel2.Location = New Point(3, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(442, 390)
+        Me.Panel2.Size = New Size(442, 390)
         Me.Panel2.TabIndex = 185
         '
         'CheckBox9
         '
         Me.CheckBox9.AutoSize = True
-        Me.CheckBox9.Location = New System.Drawing.Point(3, 192)
+        Me.CheckBox9.Location = New Point(3, 192)
         Me.CheckBox9.Name = "CheckBox9"
-        Me.CheckBox9.Size = New System.Drawing.Size(239, 17)
+        Me.CheckBox9.Size = New Size(239, 17)
         Me.CheckBox9.TabIndex = 191
         Me.CheckBox9.Text = "Set Modulation to ""Not Set"" for HD Channels"
         Me.CheckBox9.UseVisualStyleBackColor = True
@@ -445,9 +450,9 @@ Public Class Setup
         'CheckBox8
         '
         Me.CheckBox8.AutoSize = True
-        Me.CheckBox8.Location = New System.Drawing.Point(3, 215)
+        Me.CheckBox8.Location = New Point(3, 215)
         Me.CheckBox8.Name = "CheckBox8"
-        Me.CheckBox8.Size = New System.Drawing.Size(156, 17)
+        Me.CheckBox8.Size = New Size(156, 17)
         Me.CheckBox8.TabIndex = 190
         Me.CheckBox8.Text = "Ignore Scrambled Channels"
         Me.CheckBox8.UseVisualStyleBackColor = True
@@ -455,9 +460,9 @@ Public Class Setup
         'CheckBox7
         '
         Me.CheckBox7.AutoSize = True
-        Me.CheckBox7.Location = New System.Drawing.Point(3, 169)
+        Me.CheckBox7.Location = New Point(3, 169)
         Me.CheckBox7.Name = "CheckBox7"
-        Me.CheckBox7.Size = New System.Drawing.Size(238, 17)
+        Me.CheckBox7.Size = New Size(238, 17)
         Me.CheckBox7.TabIndex = 189
         Me.CheckBox7.Text = "Set Modulation to ""Not Set"" for SD Channels"
         Me.CheckBox7.UseVisualStyleBackColor = True
@@ -465,9 +470,9 @@ Public Class Setup
         'CheckBox3
         '
         Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(3, 146)
+        Me.CheckBox3.Location = New Point(3, 146)
         Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(251, 17)
+        Me.CheckBox3.Size = New Size(251, 17)
         Me.CheckBox3.TabIndex = 188
         Me.CheckBox3.Text = "Include Extra Program Info ([HD],[SUB],[W] etc)"
         Me.CheckBox3.UseVisualStyleBackColor = True
@@ -475,18 +480,18 @@ Public Class Setup
         'label8
         '
         Me.label8.AutoSize = True
-        Me.label8.Location = New System.Drawing.Point(3, 246)
+        Me.label8.Location = New Point(3, 246)
         Me.label8.Name = "label8"
-        Me.label8.Size = New System.Drawing.Size(89, 13)
+        Me.label8.Size = New Size(89, 13)
         Me.label8.TabIndex = 172
         Me.label8.Text = "Expired Channels"
         '
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(3, 35)
+        Me.CheckBox2.Location = New Point(3, 35)
         Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(86, 17)
+        Me.CheckBox2.Size = New Size(86, 17)
         Me.CheckBox2.TabIndex = 183
         Me.CheckBox2.Text = "Update EPG"
         Me.CheckBox2.UseVisualStyleBackColor = True
@@ -494,9 +499,9 @@ Public Class Setup
         'chk_DeleteOld
         '
         Me.chk_DeleteOld.AutoSize = True
-        Me.chk_DeleteOld.Location = New System.Drawing.Point(6, 262)
+        Me.chk_DeleteOld.Location = New Point(6, 262)
         Me.chk_DeleteOld.Name = "chk_DeleteOld"
-        Me.chk_DeleteOld.Size = New System.Drawing.Size(56, 17)
+        Me.chk_DeleteOld.Size = New Size(56, 17)
         Me.chk_DeleteOld.TabIndex = 170
         Me.chk_DeleteOld.TabStop = True
         Me.chk_DeleteOld.Text = "Delete"
@@ -505,9 +510,9 @@ Public Class Setup
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(3, 123)
+        Me.CheckBox1.Location = New Point(3, 123)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(172, 17)
+        Me.CheckBox1.Size = New Size(172, 17)
         Me.CheckBox1.TabIndex = 182
         Me.CheckBox1.Text = "Replace SD Channels with HD"
         Me.CheckBox1.UseVisualStyleBackColor = True
@@ -515,9 +520,9 @@ Public Class Setup
         'chk_MoveOld
         '
         Me.chk_MoveOld.AutoSize = True
-        Me.chk_MoveOld.Location = New System.Drawing.Point(6, 285)
+        Me.chk_MoveOld.Location = New Point(6, 285)
         Me.chk_MoveOld.Name = "chk_MoveOld"
-        Me.chk_MoveOld.Size = New System.Drawing.Size(64, 17)
+        Me.chk_MoveOld.Size = New Size(64, 17)
         Me.chk_MoveOld.TabIndex = 171
         Me.chk_MoveOld.TabStop = True
         Me.chk_MoveOld.Text = "Move to"
@@ -525,18 +530,18 @@ Public Class Setup
         '
         'txt_Move_Old_Group
         '
-        Me.txt_Move_Old_Group.Location = New System.Drawing.Point(6, 305)
+        Me.txt_Move_Old_Group.Location = New Point(6, 305)
         Me.txt_Move_Old_Group.Name = "txt_Move_Old_Group"
-        Me.txt_Move_Old_Group.Size = New System.Drawing.Size(112, 20)
+        Me.txt_Move_Old_Group.Size = New Size(112, 20)
         Me.txt_Move_Old_Group.TabIndex = 174
         Me.txt_Move_Old_Group.Text = "Old Sky Channels"
         '
         'chk_AutoUpdate
         '
         Me.chk_AutoUpdate.AutoSize = True
-        Me.chk_AutoUpdate.Location = New System.Drawing.Point(3, 13)
+        Me.chk_AutoUpdate.Location = New Point(3, 13)
         Me.chk_AutoUpdate.Name = "chk_AutoUpdate"
-        Me.chk_AutoUpdate.Size = New System.Drawing.Size(157, 17)
+        Me.chk_AutoUpdate.Size = New Size(157, 17)
         Me.chk_AutoUpdate.TabIndex = 167
         Me.chk_AutoUpdate.Text = "Update/Add New Channels"
         Me.chk_AutoUpdate.UseVisualStyleBackColor = True
@@ -544,9 +549,9 @@ Public Class Setup
         'chk_SkyCategories
         '
         Me.chk_SkyCategories.AutoSize = True
-        Me.chk_SkyCategories.Location = New System.Drawing.Point(3, 79)
+        Me.chk_SkyCategories.Location = New Point(3, 79)
         Me.chk_SkyCategories.Name = "chk_SkyCategories"
-        Me.chk_SkyCategories.Size = New System.Drawing.Size(122, 17)
+        Me.chk_SkyCategories.Size = New Size(122, 17)
         Me.chk_SkyCategories.TabIndex = 177
         Me.chk_SkyCategories.Text = "Use Sky Categories "
         Me.chk_SkyCategories.UseVisualStyleBackColor = True
@@ -554,9 +559,9 @@ Public Class Setup
         'chk_SkyNumbers
         '
         Me.chk_SkyNumbers.AutoSize = True
-        Me.chk_SkyNumbers.Location = New System.Drawing.Point(3, 57)
+        Me.chk_SkyNumbers.Location = New Point(3, 57)
         Me.chk_SkyNumbers.Name = "chk_SkyNumbers"
-        Me.chk_SkyNumbers.Size = New System.Drawing.Size(120, 17)
+        Me.chk_SkyNumbers.Size = New Size(120, 17)
         Me.chk_SkyNumbers.TabIndex = 168
         Me.chk_SkyNumbers.Text = "Use Sky Numbering"
         Me.chk_SkyNumbers.UseVisualStyleBackColor = True
@@ -564,9 +569,9 @@ Public Class Setup
         'chk_SkyRegions
         '
         Me.chk_SkyRegions.AutoSize = True
-        Me.chk_SkyRegions.Location = New System.Drawing.Point(3, 101)
+        Me.chk_SkyRegions.Location = New Point(3, 101)
         Me.chk_SkyRegions.Name = "chk_SkyRegions"
-        Me.chk_SkyRegions.Size = New System.Drawing.Size(306, 17)
+        Me.chk_SkyRegions.Size = New Size(306, 17)
         Me.chk_SkyRegions.TabIndex = 176
         Me.chk_SkyRegions.Text = "Use Sky Region (Untick to STOP channels moving around)"
         Me.chk_SkyRegions.UseVisualStyleBackColor = True
@@ -574,10 +579,10 @@ Public Class Setup
         'tabPage1
         '
         Me.tabPage1.Controls.Add(Me.skyUKContainer)
-        Me.tabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.tabPage1.Location = New Point(4, 22)
         Me.tabPage1.Name = "tabPage1"
-        Me.tabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabPage1.Size = New System.Drawing.Size(448, 396)
+        Me.tabPage1.Padding = New Padding(3)
+        Me.tabPage1.Size = New Size(448, 396)
         Me.tabPage1.TabIndex = 0
         Me.tabPage1.Text = "Region / Groups"
         Me.tabPage1.UseVisualStyleBackColor = True
@@ -586,10 +591,10 @@ Public Class Setup
         '
         Me.skyUKContainer.Controls.Add(Me.groupBox1)
         Me.skyUKContainer.Controls.Add(Me.groupBox3)
-        Me.skyUKContainer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.skyUKContainer.Location = New System.Drawing.Point(3, 3)
+        Me.skyUKContainer.Dock = DockStyle.Fill
+        Me.skyUKContainer.Location = New Point(3, 3)
         Me.skyUKContainer.Name = "skyUKContainer"
-        Me.skyUKContainer.Size = New System.Drawing.Size(442, 390)
+        Me.skyUKContainer.Size = New Size(442, 390)
         Me.skyUKContainer.TabIndex = 177
         Me.skyUKContainer.TabStop = False
         '
@@ -656,20 +661,20 @@ Public Class Setup
         Me.groupBox1.Controls.Add(Me.CatByte2)
         Me.groupBox1.Controls.Add(Me.CatText1)
         Me.groupBox1.Controls.Add(Me.CatByte1)
-        Me.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.groupBox1.Location = New System.Drawing.Point(3, 65)
+        Me.groupBox1.Dock = DockStyle.Fill
+        Me.groupBox1.Location = New Point(3, 65)
         Me.groupBox1.Name = "groupBox1"
-        Me.groupBox1.Size = New System.Drawing.Size(436, 322)
+        Me.groupBox1.Size = New Size(436, 322)
         Me.groupBox1.TabIndex = 174
         Me.groupBox1.TabStop = False
         Me.groupBox1.Text = "Groups"
         '
         'Button4
         '
-        Me.Button4.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Button4.Location = New System.Drawing.Point(3, 285)
+        Me.Button4.Dock = DockStyle.Bottom
+        Me.Button4.Location = New Point(3, 285)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(430, 34)
+        Me.Button4.Size = New Size(430, 34)
         Me.Button4.TabIndex = 82
         Me.Button4.Text = "Save Changes"
         Me.Button4.UseVisualStyleBackColor = True
@@ -677,501 +682,501 @@ Public Class Setup
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(218, 250)
+        Me.Label15.Location = New Point(218, 250)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(19, 13)
+        Me.Label15.Size = New Size(19, 13)
         Me.Label15.TabIndex = 81
         Me.Label15.Text = "20"
         '
         'CatText20
         '
-        Me.CatText20.Location = New System.Drawing.Point(282, 247)
+        Me.CatText20.Location = New Point(282, 247)
         Me.CatText20.Name = "CatText20"
-        Me.CatText20.Size = New System.Drawing.Size(133, 20)
+        Me.CatText20.Size = New Size(133, 20)
         Me.CatText20.TabIndex = 80
         '
         'CatByte20
         '
-        Me.CatByte20.Location = New System.Drawing.Point(237, 247)
+        Me.CatByte20.Location = New Point(237, 247)
         Me.CatByte20.Name = "CatByte20"
-        Me.CatByte20.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte20.Size = New Size(39, 20)
         Me.CatByte20.TabIndex = 79
         '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(218, 224)
+        Me.Label16.Location = New Point(218, 224)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(19, 13)
+        Me.Label16.Size = New Size(19, 13)
         Me.Label16.TabIndex = 78
         Me.Label16.Text = "19"
-        Me.Label16.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Label16.TextAlign = ContentAlignment.TopCenter
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(218, 198)
+        Me.Label17.Location = New Point(218, 198)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(19, 13)
+        Me.Label17.Size = New Size(19, 13)
         Me.Label17.TabIndex = 77
         Me.Label17.Text = "18"
         '
         'CatText19
         '
-        Me.CatText19.Location = New System.Drawing.Point(282, 221)
+        Me.CatText19.Location = New Point(282, 221)
         Me.CatText19.Name = "CatText19"
-        Me.CatText19.Size = New System.Drawing.Size(133, 20)
+        Me.CatText19.Size = New Size(133, 20)
         Me.CatText19.TabIndex = 76
         '
         'CatByte19
         '
-        Me.CatByte19.Location = New System.Drawing.Point(237, 221)
+        Me.CatByte19.Location = New Point(237, 221)
         Me.CatByte19.Name = "CatByte19"
-        Me.CatByte19.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte19.Size = New Size(39, 20)
         Me.CatByte19.TabIndex = 75
         '
         'CatText18
         '
-        Me.CatText18.Location = New System.Drawing.Point(282, 195)
+        Me.CatText18.Location = New Point(282, 195)
         Me.CatText18.Name = "CatText18"
-        Me.CatText18.Size = New System.Drawing.Size(133, 20)
+        Me.CatText18.Size = New Size(133, 20)
         Me.CatText18.TabIndex = 74
         '
         'CatByte18
         '
-        Me.CatByte18.Location = New System.Drawing.Point(237, 195)
+        Me.CatByte18.Location = New Point(237, 195)
         Me.CatByte18.Name = "CatByte18"
-        Me.CatByte18.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte18.Size = New Size(39, 20)
         Me.CatByte18.TabIndex = 73
         '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(218, 172)
+        Me.Label18.Location = New Point(218, 172)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(19, 13)
+        Me.Label18.Size = New Size(19, 13)
         Me.Label18.TabIndex = 72
         Me.Label18.Text = "17"
-        Me.Label18.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Label18.TextAlign = ContentAlignment.TopCenter
         '
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(218, 146)
+        Me.Label19.Location = New Point(218, 146)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(19, 13)
+        Me.Label19.Size = New Size(19, 13)
         Me.Label19.TabIndex = 71
         Me.Label19.Text = "16"
         '
         'CatText17
         '
-        Me.CatText17.Location = New System.Drawing.Point(282, 169)
+        Me.CatText17.Location = New Point(282, 169)
         Me.CatText17.Name = "CatText17"
-        Me.CatText17.Size = New System.Drawing.Size(133, 20)
+        Me.CatText17.Size = New Size(133, 20)
         Me.CatText17.TabIndex = 70
         '
         'CatByte17
         '
-        Me.CatByte17.Location = New System.Drawing.Point(237, 169)
+        Me.CatByte17.Location = New Point(237, 169)
         Me.CatByte17.Name = "CatByte17"
-        Me.CatByte17.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte17.Size = New Size(39, 20)
         Me.CatByte17.TabIndex = 69
         '
         'CatText16
         '
-        Me.CatText16.Location = New System.Drawing.Point(282, 143)
+        Me.CatText16.Location = New Point(282, 143)
         Me.CatText16.Name = "CatText16"
-        Me.CatText16.Size = New System.Drawing.Size(133, 20)
+        Me.CatText16.Size = New Size(133, 20)
         Me.CatText16.TabIndex = 68
         '
         'CatByte16
         '
-        Me.CatByte16.Location = New System.Drawing.Point(237, 143)
+        Me.CatByte16.Location = New Point(237, 143)
         Me.CatByte16.Name = "CatByte16"
-        Me.CatByte16.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte16.Size = New Size(39, 20)
         Me.CatByte16.TabIndex = 67
         '
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(218, 120)
+        Me.Label20.Location = New Point(218, 120)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(19, 13)
+        Me.Label20.Size = New Size(19, 13)
         Me.Label20.TabIndex = 66
         Me.Label20.Text = "15"
         '
         'CatText15
         '
-        Me.CatText15.Location = New System.Drawing.Point(282, 117)
+        Me.CatText15.Location = New Point(282, 117)
         Me.CatText15.Name = "CatText15"
-        Me.CatText15.Size = New System.Drawing.Size(133, 20)
+        Me.CatText15.Size = New Size(133, 20)
         Me.CatText15.TabIndex = 65
         '
         'CatByte15
         '
-        Me.CatByte15.Location = New System.Drawing.Point(237, 117)
+        Me.CatByte15.Location = New Point(237, 117)
         Me.CatByte15.Name = "CatByte15"
-        Me.CatByte15.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte15.Size = New Size(39, 20)
         Me.CatByte15.TabIndex = 64
         '
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(218, 94)
+        Me.Label21.Location = New Point(218, 94)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(19, 13)
+        Me.Label21.Size = New Size(19, 13)
         Me.Label21.TabIndex = 63
         Me.Label21.Text = "14"
-        Me.Label21.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Label21.TextAlign = ContentAlignment.TopCenter
         '
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(218, 68)
+        Me.Label22.Location = New Point(218, 68)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(19, 13)
+        Me.Label22.Size = New Size(19, 13)
         Me.Label22.TabIndex = 62
         Me.Label22.Text = "13"
         '
         'CatText14
         '
-        Me.CatText14.Location = New System.Drawing.Point(282, 91)
+        Me.CatText14.Location = New Point(282, 91)
         Me.CatText14.Name = "CatText14"
-        Me.CatText14.Size = New System.Drawing.Size(133, 20)
+        Me.CatText14.Size = New Size(133, 20)
         Me.CatText14.TabIndex = 61
         '
         'CatByte14
         '
-        Me.CatByte14.Location = New System.Drawing.Point(237, 91)
+        Me.CatByte14.Location = New Point(237, 91)
         Me.CatByte14.Name = "CatByte14"
-        Me.CatByte14.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte14.Size = New Size(39, 20)
         Me.CatByte14.TabIndex = 60
         '
         'CatText13
         '
-        Me.CatText13.Location = New System.Drawing.Point(282, 65)
+        Me.CatText13.Location = New Point(282, 65)
         Me.CatText13.Name = "CatText13"
-        Me.CatText13.Size = New System.Drawing.Size(133, 20)
+        Me.CatText13.Size = New Size(133, 20)
         Me.CatText13.TabIndex = 59
         '
         'CatByte13
         '
-        Me.CatByte13.Location = New System.Drawing.Point(237, 65)
+        Me.CatByte13.Location = New Point(237, 65)
         Me.CatByte13.Name = "CatByte13"
-        Me.CatByte13.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte13.Size = New Size(39, 20)
         Me.CatByte13.TabIndex = 58
         '
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(218, 42)
+        Me.Label23.Location = New Point(218, 42)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(19, 13)
+        Me.Label23.Size = New Size(19, 13)
         Me.Label23.TabIndex = 57
         Me.Label23.Text = "12"
-        Me.Label23.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Label23.TextAlign = ContentAlignment.TopCenter
         '
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(218, 16)
+        Me.Label24.Location = New Point(218, 16)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(19, 13)
+        Me.Label24.Size = New Size(19, 13)
         Me.Label24.TabIndex = 56
         Me.Label24.Text = "11"
         '
         'CatText12
         '
-        Me.CatText12.Location = New System.Drawing.Point(282, 39)
+        Me.CatText12.Location = New Point(282, 39)
         Me.CatText12.Name = "CatText12"
-        Me.CatText12.Size = New System.Drawing.Size(133, 20)
+        Me.CatText12.Size = New Size(133, 20)
         Me.CatText12.TabIndex = 55
         '
         'CatByte12
         '
-        Me.CatByte12.Location = New System.Drawing.Point(237, 39)
+        Me.CatByte12.Location = New Point(237, 39)
         Me.CatByte12.Name = "CatByte12"
-        Me.CatByte12.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte12.Size = New Size(39, 20)
         Me.CatByte12.TabIndex = 54
         '
         'CatText11
         '
-        Me.CatText11.Location = New System.Drawing.Point(282, 13)
+        Me.CatText11.Location = New Point(282, 13)
         Me.CatText11.Name = "CatText11"
-        Me.CatText11.Size = New System.Drawing.Size(133, 20)
+        Me.CatText11.Size = New Size(133, 20)
         Me.CatText11.TabIndex = 53
         Me.CatText11.Text = "Interactive"
         '
         'CatByte11
         '
-        Me.CatByte11.Location = New System.Drawing.Point(237, 13)
+        Me.CatByte11.Location = New Point(237, 13)
         Me.CatByte11.Name = "CatByte11"
-        Me.CatByte11.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte11.Size = New Size(39, 20)
         Me.CatByte11.TabIndex = 52
         Me.CatByte11.Text = "15"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(8, 250)
+        Me.Label5.Location = New Point(8, 250)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(19, 13)
+        Me.Label5.Size = New Size(19, 13)
         Me.Label5.TabIndex = 51
         Me.Label5.Text = "10"
         '
         'CatText9
         '
-        Me.CatText9.Location = New System.Drawing.Point(72, 221)
+        Me.CatText9.Location = New Point(72, 221)
         Me.CatText9.Name = "CatText9"
-        Me.CatText9.Size = New System.Drawing.Size(133, 20)
+        Me.CatText9.Size = New Size(133, 20)
         Me.CatText9.TabIndex = 50
         Me.CatText9.Text = "News & Documentaries"
         '
         'CatByte9
         '
-        Me.CatByte9.Location = New System.Drawing.Point(27, 221)
+        Me.CatByte9.Location = New Point(27, 221)
         Me.CatByte9.Name = "CatByte9"
-        Me.CatByte9.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte9.Size = New Size(39, 20)
         Me.CatByte9.TabIndex = 49
         Me.CatByte9.Text = "191"
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(8, 224)
+        Me.Label11.Location = New Point(8, 224)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(13, 13)
+        Me.Label11.Size = New Size(13, 13)
         Me.Label11.TabIndex = 48
         Me.Label11.Text = "9"
-        Me.Label11.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Label11.TextAlign = ContentAlignment.TopCenter
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(8, 198)
+        Me.Label12.Location = New Point(8, 198)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(13, 13)
+        Me.Label12.Size = New Size(13, 13)
         Me.Label12.TabIndex = 47
         Me.Label12.Text = "8"
         '
         'CatText7
         '
-        Me.CatText7.Location = New System.Drawing.Point(72, 169)
+        Me.CatText7.Location = New Point(72, 169)
         Me.CatText7.Name = "CatText7"
-        Me.CatText7.Size = New System.Drawing.Size(133, 20)
+        Me.CatText7.Size = New Size(133, 20)
         Me.CatText7.TabIndex = 46
         Me.CatText7.Text = "News & Documentaries"
         '
         'CatByte7
         '
-        Me.CatByte7.Location = New System.Drawing.Point(27, 169)
+        Me.CatByte7.Location = New Point(27, 169)
         Me.CatByte7.Name = "CatByte7"
-        Me.CatByte7.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte7.Size = New Size(39, 20)
         Me.CatByte7.TabIndex = 45
         Me.CatByte7.Text = "47"
         '
         'CatText10
         '
-        Me.CatText10.Location = New System.Drawing.Point(72, 247)
+        Me.CatText10.Location = New Point(72, 247)
         Me.CatText10.Name = "CatText10"
-        Me.CatText10.Size = New System.Drawing.Size(133, 20)
+        Me.CatText10.Size = New Size(133, 20)
         Me.CatText10.TabIndex = 44
         Me.CatText10.Text = "Adult"
         '
         'CatByte10
         '
-        Me.CatByte10.Location = New System.Drawing.Point(27, 247)
+        Me.CatByte10.Location = New Point(27, 247)
         Me.CatByte10.Name = "CatByte10"
-        Me.CatByte10.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte10.Size = New Size(39, 20)
         Me.CatByte10.TabIndex = 43
         Me.CatByte10.Text = "255"
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(8, 172)
+        Me.Label13.Location = New Point(8, 172)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(13, 13)
+        Me.Label13.Size = New Size(13, 13)
         Me.Label13.TabIndex = 42
         Me.Label13.Text = "7"
-        Me.Label13.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Label13.TextAlign = ContentAlignment.TopCenter
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(8, 146)
+        Me.Label14.Location = New Point(8, 146)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(13, 13)
+        Me.Label14.Size = New Size(13, 13)
         Me.Label14.TabIndex = 41
         Me.Label14.Text = "6"
         '
         'CatText6
         '
-        Me.CatText6.Location = New System.Drawing.Point(72, 143)
+        Me.CatText6.Location = New Point(72, 143)
         Me.CatText6.Name = "CatText6"
-        Me.CatText6.Size = New System.Drawing.Size(133, 20)
+        Me.CatText6.Size = New Size(133, 20)
         Me.CatText6.TabIndex = 40
         Me.CatText6.Text = "Music Videos"
         '
         'CatByte6
         '
-        Me.CatByte6.Location = New System.Drawing.Point(27, 143)
+        Me.CatByte6.Location = New Point(27, 143)
         Me.CatByte6.Name = "CatByte6"
-        Me.CatByte6.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte6.Size = New Size(39, 20)
         Me.CatByte6.TabIndex = 39
         Me.CatByte6.Text = "111"
         '
         'CatText5
         '
-        Me.CatText5.Location = New System.Drawing.Point(72, 117)
+        Me.CatText5.Location = New Point(72, 117)
         Me.CatText5.Name = "CatText5"
-        Me.CatText5.Size = New System.Drawing.Size(133, 20)
+        Me.CatText5.Size = New Size(133, 20)
         Me.CatText5.TabIndex = 38
         Me.CatText5.Text = "Sky Sports"
         '
         'CatByte5
         '
-        Me.CatByte5.Location = New System.Drawing.Point(27, 117)
+        Me.CatByte5.Location = New Point(27, 117)
         Me.CatByte5.Name = "CatByte5"
-        Me.CatByte5.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte5.Size = New Size(39, 20)
         Me.CatByte5.TabIndex = 37
         Me.CatByte5.Text = "79"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(8, 120)
+        Me.Label7.Location = New Point(8, 120)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(13, 13)
+        Me.Label7.Size = New Size(13, 13)
         Me.Label7.TabIndex = 36
         Me.Label7.Text = "5"
         '
         'CatText4
         '
-        Me.CatText4.Location = New System.Drawing.Point(72, 91)
+        Me.CatText4.Location = New Point(72, 91)
         Me.CatText4.Name = "CatText4"
-        Me.CatText4.Size = New System.Drawing.Size(133, 20)
+        Me.CatText4.Size = New Size(133, 20)
         Me.CatText4.TabIndex = 33
         Me.CatText4.Text = "Sky Movies"
         '
         'CatByte4
         '
-        Me.CatByte4.Location = New System.Drawing.Point(27, 91)
+        Me.CatByte4.Location = New Point(27, 91)
         Me.CatByte4.Name = "CatByte4"
-        Me.CatByte4.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte4.Size = New Size(39, 20)
         Me.CatByte4.TabIndex = 32
         Me.CatByte4.Text = "31"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(8, 94)
+        Me.Label3.Location = New Point(8, 94)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(13, 13)
+        Me.Label3.Size = New Size(13, 13)
         Me.Label3.TabIndex = 31
         Me.Label3.Text = "4"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Label3.TextAlign = ContentAlignment.TopCenter
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(8, 68)
+        Me.Label4.Location = New Point(8, 68)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(13, 13)
+        Me.Label4.Size = New Size(13, 13)
         Me.Label4.TabIndex = 30
         Me.Label4.Text = "3"
         '
         'CatText8
         '
-        Me.CatText8.Location = New System.Drawing.Point(72, 195)
+        Me.CatText8.Location = New Point(72, 195)
         Me.CatText8.Name = "CatText8"
-        Me.CatText8.Size = New System.Drawing.Size(133, 20)
+        Me.CatText8.Size = New Size(133, 20)
         Me.CatText8.TabIndex = 29
         Me.CatText8.Text = "News & Documentaries"
         '
         'CatByte8
         '
-        Me.CatByte8.Location = New System.Drawing.Point(27, 195)
+        Me.CatByte8.Location = New Point(27, 195)
         Me.CatByte8.Name = "CatByte8"
-        Me.CatByte8.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte8.Size = New Size(39, 20)
         Me.CatByte8.TabIndex = 28
         Me.CatByte8.Text = "159"
         '
         'CatText3
         '
-        Me.CatText3.Location = New System.Drawing.Point(72, 65)
+        Me.CatText3.Location = New Point(72, 65)
         Me.CatText3.Name = "CatText3"
-        Me.CatText3.Size = New System.Drawing.Size(133, 20)
+        Me.CatText3.Size = New Size(133, 20)
         Me.CatText3.TabIndex = 27
         Me.CatText3.Text = "Entertainment"
         '
         'CatByte3
         '
-        Me.CatByte3.Location = New System.Drawing.Point(27, 65)
+        Me.CatByte3.Location = New Point(27, 65)
         Me.CatByte3.Name = "CatByte3"
-        Me.CatByte3.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte3.Size = New Size(39, 20)
         Me.CatByte3.TabIndex = 26
         Me.CatByte3.Text = "175"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(8, 42)
+        Me.Label2.Location = New Point(8, 42)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(13, 13)
+        Me.Label2.Size = New Size(13, 13)
         Me.Label2.TabIndex = 25
         Me.Label2.Text = "2"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Label2.TextAlign = ContentAlignment.TopCenter
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(8, 16)
+        Me.Label1.Location = New Point(8, 16)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(13, 13)
+        Me.Label1.Size = New Size(13, 13)
         Me.Label1.TabIndex = 24
         Me.Label1.Text = "1"
         '
         'CatText2
         '
-        Me.CatText2.Location = New System.Drawing.Point(72, 39)
+        Me.CatText2.Location = New Point(72, 39)
         Me.CatText2.Name = "CatText2"
-        Me.CatText2.Size = New System.Drawing.Size(133, 20)
+        Me.CatText2.Size = New Size(133, 20)
         Me.CatText2.TabIndex = 3
         Me.CatText2.Text = "Entertainment"
         '
         'CatByte2
         '
-        Me.CatByte2.Location = New System.Drawing.Point(26, 39)
+        Me.CatByte2.Location = New Point(26, 39)
         Me.CatByte2.Name = "CatByte2"
-        Me.CatByte2.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte2.Size = New Size(39, 20)
         Me.CatByte2.TabIndex = 2
         Me.CatByte2.Text = "127"
         '
         'CatText1
         '
-        Me.CatText1.Location = New System.Drawing.Point(72, 13)
+        Me.CatText1.Location = New Point(72, 13)
         Me.CatText1.Name = "CatText1"
-        Me.CatText1.Size = New System.Drawing.Size(133, 20)
+        Me.CatText1.Size = New Size(133, 20)
         Me.CatText1.TabIndex = 1
         Me.CatText1.Text = "Entertainment"
         '
         'CatByte1
         '
-        Me.CatByte1.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.CatByte1.Location = New System.Drawing.Point(27, 13)
+        Me.CatByte1.Cursor = Cursors.IBeam
+        Me.CatByte1.Location = New Point(27, 13)
         Me.CatByte1.Name = "CatByte1"
-        Me.CatByte1.Size = New System.Drawing.Size(39, 20)
+        Me.CatByte1.Size = New Size(39, 20)
         Me.CatByte1.TabIndex = 0
         Me.CatByte1.Text = "63"
         '
         'groupBox3
         '
         Me.groupBox3.Controls.Add(Me.SkyUK_Region)
-        Me.groupBox3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.groupBox3.Location = New System.Drawing.Point(3, 16)
+        Me.groupBox3.Dock = DockStyle.Top
+        Me.groupBox3.Location = New Point(3, 16)
         Me.groupBox3.Name = "groupBox3"
-        Me.groupBox3.Size = New System.Drawing.Size(436, 49)
+        Me.groupBox3.Size = New Size(436, 49)
         Me.groupBox3.TabIndex = 175
         Me.groupBox3.TabStop = False
         Me.groupBox3.Text = "Region"
@@ -1179,21 +1184,21 @@ Public Class Setup
         'SkyUK_Region
         '
         Me.SkyUK_Region.DisplayMember = "Sky_UK_Regions.RegionName"
-        Me.SkyUK_Region.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SkyUK_Region.Dock = DockStyle.Fill
         Me.SkyUK_Region.FormattingEnabled = True
-        Me.SkyUK_Region.Location = New System.Drawing.Point(3, 16)
+        Me.SkyUK_Region.Location = New Point(3, 16)
         Me.SkyUK_Region.Name = "SkyUK_Region"
-        Me.SkyUK_Region.Size = New System.Drawing.Size(430, 21)
+        Me.SkyUK_Region.Size = New Size(430, 21)
         Me.SkyUK_Region.TabIndex = 148
         '
         'TabPage4
         '
         Me.TabPage4.Controls.Add(Me.MpGroupBox2)
         Me.TabPage4.Controls.Add(Me.MpGroupBox1)
-        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage4.Location = New Point(4, 22)
         Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(448, 396)
+        Me.TabPage4.Padding = New Padding(3)
+        Me.TabPage4.Size = New Size(448, 396)
         Me.TabPage4.TabIndex = 4
         Me.TabPage4.Text = "Cards / Mapping"
         Me.TabPage4.UseVisualStyleBackColor = True
@@ -1201,11 +1206,11 @@ Public Class Setup
         'MpGroupBox2
         '
         Me.MpGroupBox2.Controls.Add(Me.ChannelMap)
-        Me.MpGroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MpGroupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.MpGroupBox2.Location = New System.Drawing.Point(3, 118)
+        Me.MpGroupBox2.Dock = DockStyle.Fill
+        Me.MpGroupBox2.FlatStyle = FlatStyle.Popup
+        Me.MpGroupBox2.Location = New Point(3, 118)
         Me.MpGroupBox2.Name = "MpGroupBox2"
-        Me.MpGroupBox2.Size = New System.Drawing.Size(442, 275)
+        Me.MpGroupBox2.Size = New Size(442, 275)
         Me.MpGroupBox2.TabIndex = 187
         Me.MpGroupBox2.TabStop = False
         Me.MpGroupBox2.Text = "Select Card(s) for grab and Mapping"
@@ -1213,12 +1218,12 @@ Public Class Setup
         'ChannelMap
         '
         Me.ChannelMap.AccessibleDescription = "Use this to select the cards you wish to Map your channel searches to."
-        Me.ChannelMap.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.ChannelMap.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ChannelMap.BorderStyle = BorderStyle.None
+        Me.ChannelMap.Dock = DockStyle.Fill
         Me.ChannelMap.FormattingEnabled = True
-        Me.ChannelMap.Location = New System.Drawing.Point(3, 16)
+        Me.ChannelMap.Location = New Point(3, 16)
         Me.ChannelMap.Name = "ChannelMap"
-        Me.ChannelMap.Size = New System.Drawing.Size(436, 256)
+        Me.ChannelMap.Size = New Size(436, 256)
         Me.ChannelMap.TabIndex = 0
         '
         'MpGroupBox1
@@ -1238,11 +1243,11 @@ Public Class Setup
         Me.MpGroupBox1.Controls.Add(Me.TextBox10)
         Me.MpGroupBox1.Controls.Add(Me.MpLabel9)
         Me.MpGroupBox1.Controls.Add(Me.MpLabel10)
-        Me.MpGroupBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.MpGroupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.MpGroupBox1.Location = New System.Drawing.Point(3, 3)
+        Me.MpGroupBox1.Dock = DockStyle.Top
+        Me.MpGroupBox1.FlatStyle = FlatStyle.Popup
+        Me.MpGroupBox1.Location = New Point(3, 3)
         Me.MpGroupBox1.Name = "MpGroupBox1"
-        Me.MpGroupBox1.Size = New System.Drawing.Size(442, 115)
+        Me.MpGroupBox1.Size = New Size(442, 115)
         Me.MpGroupBox1.TabIndex = 186
         Me.MpGroupBox1.TabStop = False
         Me.MpGroupBox1.Text = "Sky Channel Grabber setting"
@@ -1250,148 +1255,148 @@ Public Class Setup
         'MpLabel1
         '
         Me.MpLabel1.AutoSize = True
-        Me.MpLabel1.Location = New System.Drawing.Point(6, 66)
+        Me.MpLabel1.Location = New Point(6, 66)
         Me.MpLabel1.Name = "MpLabel1"
-        Me.MpLabel1.Size = New System.Drawing.Size(40, 13)
+        Me.MpLabel1.Size = New Size(40, 13)
         Me.MpLabel1.TabIndex = 187
         Me.MpLabel1.Text = "Diseqc"
         '
         'mpDisEqc1
         '
-        Me.mpDisEqc1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.mpDisEqc1.DropDownStyle = ComboBoxStyle.DropDownList
         Me.mpDisEqc1.FormattingEnabled = True
         Me.mpDisEqc1.Items.AddRange(New Object() {"None", "SimpleA", "SimpleB", "Level1AA", "Level1AB", "Level1BA", "Level1BB"})
-        Me.mpDisEqc1.Location = New System.Drawing.Point(9, 81)
+        Me.mpDisEqc1.Location = New Point(9, 81)
         Me.mpDisEqc1.Name = "mpDisEqc1"
-        Me.mpDisEqc1.Size = New System.Drawing.Size(90, 21)
+        Me.mpDisEqc1.Size = New Size(90, 21)
         Me.mpDisEqc1.TabIndex = 186
         '
         'MpLabel6
         '
         Me.MpLabel6.AutoSize = True
-        Me.MpLabel6.Location = New System.Drawing.Point(312, 65)
+        Me.MpLabel6.Location = New Point(312, 65)
         Me.MpLabel6.Name = "MpLabel6"
-        Me.MpLabel6.Size = New System.Drawing.Size(62, 13)
+        Me.MpLabel6.Size = New Size(62, 13)
         Me.MpLabel6.TabIndex = 48
         Me.MpLabel6.Text = "Modulation:"
         '
         'MpComboBox1
         '
-        Me.MpComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.MpComboBox1.DropDownStyle = ComboBoxStyle.DropDownList
         Me.MpComboBox1.FormattingEnabled = True
         Me.MpComboBox1.Items.AddRange(New Object() {"ModNotSet", "ModNotDefined", "Mod16Qam", "Mod32Qam", "Mod64Qam", "Mod80Qam", "Mod96Qam", "Mod112Qam", "Mod128Qam", "Mod160Qam", "Mod192Qam", "Mod224Qam", "Mod256Qam", "Mod320Qam", "Mod384Qam", "Mod448Qam", "Mod512Qam", "Mod640Qam", "Mod768Qam", "Mod896Qam", "Mod1024Qam", "ModQpsk", "ModBpsk", "ModOqpsk", "Mod8Vsb", "Mod16Vsb", "ModAnalogAmplitude", "ModAnalogFrequency", "Mod8Psk", "ModRF", "Mod16Apsk", "Mod32Apsk", "ModNbcQpsk", "ModNbc8Psk", "ModDirectTv", "ModMax"})
-        Me.MpComboBox1.Location = New System.Drawing.Point(315, 81)
+        Me.MpComboBox1.Location = New Point(315, 81)
         Me.MpComboBox1.Name = "MpComboBox1"
-        Me.MpComboBox1.Size = New System.Drawing.Size(92, 21)
+        Me.MpComboBox1.Size = New Size(92, 21)
         Me.MpComboBox1.TabIndex = 49
         '
         'MpLabel8
         '
         Me.MpLabel8.AutoSize = True
-        Me.MpLabel8.Location = New System.Drawing.Point(158, 66)
+        Me.MpLabel8.Location = New Point(158, 66)
         Me.MpLabel8.Name = "MpLabel8"
-        Me.MpLabel8.Size = New System.Drawing.Size(64, 13)
+        Me.MpLabel8.Size = New Size(64, 13)
         Me.MpLabel8.TabIndex = 46
         Me.MpLabel8.Text = "Polarisation:"
         '
         'MpComboBox2
         '
-        Me.MpComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.MpComboBox2.DropDownStyle = ComboBoxStyle.DropDownList
         Me.MpComboBox2.FormattingEnabled = True
         Me.MpComboBox2.Items.AddRange(New Object() {"Not Set", "Not Defined", "Horizontal", "Vertical", "Circular Left", "Circular Right"})
-        Me.MpComboBox2.Location = New System.Drawing.Point(161, 81)
+        Me.MpComboBox2.Location = New Point(161, 81)
         Me.MpComboBox2.Name = "MpComboBox2"
-        Me.MpComboBox2.Size = New System.Drawing.Size(92, 21)
+        Me.MpComboBox2.Size = New Size(92, 21)
         Me.MpComboBox2.TabIndex = 47
         '
         'MpLabel3
         '
         Me.MpLabel3.AutoSize = True
-        Me.MpLabel3.Location = New System.Drawing.Point(342, 16)
+        Me.MpLabel3.Location = New Point(342, 16)
         Me.MpLabel3.Name = "MpLabel3"
-        Me.MpLabel3.Size = New System.Drawing.Size(57, 13)
+        Me.MpLabel3.Size = New Size(57, 13)
         Me.MpLabel3.TabIndex = 105
         Me.MpLabel3.Text = "Service ID"
         '
         'TextBox4
         '
-        Me.TextBox4.Location = New System.Drawing.Point(345, 32)
+        Me.TextBox4.Location = New Point(345, 32)
         Me.TextBox4.MaxLength = 5
         Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(63, 20)
+        Me.TextBox4.Size = New Size(63, 20)
         Me.TextBox4.TabIndex = 104
         Me.TextBox4.Text = "9003"
         '
         'MpLabel4
         '
         Me.MpLabel4.AutoSize = True
-        Me.MpLabel4.Location = New System.Drawing.Point(230, 16)
+        Me.MpLabel4.Location = New Point(230, 16)
         Me.MpLabel4.Name = "MpLabel4"
-        Me.MpLabel4.Size = New System.Drawing.Size(66, 13)
+        Me.MpLabel4.Size = New Size(66, 13)
         Me.MpLabel4.TabIndex = 103
         Me.MpLabel4.Text = "Transport ID"
         '
         'TextBox5
         '
-        Me.TextBox5.Location = New System.Drawing.Point(233, 32)
+        Me.TextBox5.Location = New Point(233, 32)
         Me.TextBox5.MaxLength = 5
         Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(63, 20)
+        Me.TextBox5.Size = New Size(63, 20)
         Me.TextBox5.TabIndex = 102
         Me.TextBox5.Text = "3"
         '
         'TextBox6
         '
-        Me.TextBox6.Location = New System.Drawing.Point(9, 32)
+        Me.TextBox6.Location = New Point(9, 32)
         Me.TextBox6.MaxLength = 8
         Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(63, 20)
+        Me.TextBox6.Size = New Size(63, 20)
         Me.TextBox6.TabIndex = 40
         Me.TextBox6.Text = "12519000"
         '
         'MpLabel5
         '
         Me.MpLabel5.AutoSize = True
-        Me.MpLabel5.Location = New System.Drawing.Point(6, 16)
+        Me.MpLabel5.Location = New Point(6, 16)
         Me.MpLabel5.Name = "MpLabel5"
-        Me.MpLabel5.Size = New System.Drawing.Size(60, 13)
+        Me.MpLabel5.Size = New Size(60, 13)
         Me.MpLabel5.TabIndex = 39
         Me.MpLabel5.Text = "Frequency:"
         '
         'TextBox10
         '
-        Me.TextBox10.Location = New System.Drawing.Point(121, 32)
+        Me.TextBox10.Location = New Point(121, 32)
         Me.TextBox10.MaxLength = 5
         Me.TextBox10.Name = "TextBox10"
-        Me.TextBox10.Size = New System.Drawing.Size(63, 20)
+        Me.TextBox10.Size = New Size(63, 20)
         Me.TextBox10.TabIndex = 43
         Me.TextBox10.Text = "22500"
         '
         'MpLabel9
         '
         Me.MpLabel9.AutoSize = True
-        Me.MpLabel9.Location = New System.Drawing.Point(118, 16)
+        Me.MpLabel9.Location = New Point(118, 16)
         Me.MpLabel9.Name = "MpLabel9"
-        Me.MpLabel9.Size = New System.Drawing.Size(70, 13)
+        Me.MpLabel9.Size = New Size(70, 13)
         Me.MpLabel9.TabIndex = 42
         Me.MpLabel9.Text = "Symbol Rate:"
         '
         'MpLabel10
         '
         Me.MpLabel10.AutoSize = True
-        Me.MpLabel10.Location = New System.Drawing.Point(78, 35)
+        Me.MpLabel10.Location = New Point(78, 35)
         Me.MpLabel10.Name = "MpLabel10"
-        Me.MpLabel10.Size = New System.Drawing.Size(26, 13)
+        Me.MpLabel10.Size = New Size(26, 13)
         Me.MpLabel10.TabIndex = 41
         Me.MpLabel10.Text = "kHz"
         '
         'TabPage2
         '
         Me.TabPage2.Controls.Add(Me.Panel3)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Location = New Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(448, 396)
+        Me.TabPage2.Padding = New Padding(3)
+        Me.TabPage2.Size = New Size(448, 396)
         Me.TabPage2.TabIndex = 3
         Me.TabPage2.Text = "Schedule"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -1400,9 +1405,9 @@ Public Class Setup
         '
         Me.Panel3.Controls.Add(Me.Panel1)
         Me.Panel3.Controls.Add(Me.CheckBox4)
-        Me.Panel3.Location = New System.Drawing.Point(3, 3)
+        Me.Panel3.Location = New Point(3, 3)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(445, 394)
+        Me.Panel3.Size = New Size(445, 394)
         Me.Panel3.TabIndex = 14
         '
         'Panel1
@@ -1419,35 +1424,35 @@ Public Class Setup
         Me.Panel1.Controls.Add(Me.Thu)
         Me.Panel1.Controls.Add(Me.Tue)
         Me.Panel1.Controls.Add(Me.Wed)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 17)
+        Me.Panel1.Dock = DockStyle.Fill
+        Me.Panel1.Location = New Point(0, 17)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(445, 377)
+        Me.Panel1.Size = New Size(445, 377)
         Me.Panel1.TabIndex = 13
         '
         'NumericUpDown1
         '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(114, 11)
+        Me.NumericUpDown1.Location = New Point(114, 11)
         Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(58, 20)
+        Me.NumericUpDown1.Size = New Size(58, 20)
         Me.NumericUpDown1.TabIndex = 14
         '
         'DateTimePicker1
         '
         Me.DateTimePicker1.CustomFormat = "HH:mm"
-        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DateTimePicker1.Location = New System.Drawing.Point(114, 51)
+        Me.DateTimePicker1.Format = DateTimePickerFormat.Custom
+        Me.DateTimePicker1.Location = New Point(114, 51)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.ShowUpDown = True
-        Me.DateTimePicker1.Size = New System.Drawing.Size(58, 20)
+        Me.DateTimePicker1.Size = New Size(58, 20)
         Me.DateTimePicker1.TabIndex = 13
         '
         'CheckBox5
         '
         Me.CheckBox5.AutoSize = True
-        Me.CheckBox5.Location = New System.Drawing.Point(8, 12)
+        Me.CheckBox5.Location = New Point(8, 12)
         Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(53, 17)
+        Me.CheckBox5.Size = New Size(53, 17)
         Me.CheckBox5.TabIndex = 1
         Me.CheckBox5.Text = "Every"
         Me.CheckBox5.UseVisualStyleBackColor = True
@@ -1455,9 +1460,9 @@ Public Class Setup
         'CheckBox6
         '
         Me.CheckBox6.AutoSize = True
-        Me.CheckBox6.Location = New System.Drawing.Point(8, 54)
+        Me.CheckBox6.Location = New Point(8, 54)
         Me.CheckBox6.Name = "CheckBox6"
-        Me.CheckBox6.Size = New System.Drawing.Size(108, 17)
+        Me.CheckBox6.Size = New Size(108, 17)
         Me.CheckBox6.TabIndex = 2
         Me.CheckBox6.Text = "On these days @"
         Me.CheckBox6.UseVisualStyleBackColor = True
@@ -1465,9 +1470,9 @@ Public Class Setup
         'Sun
         '
         Me.Sun.AutoSize = True
-        Me.Sun.Location = New System.Drawing.Point(116, 109)
+        Me.Sun.Location = New Point(116, 109)
         Me.Sun.Name = "Sun"
-        Me.Sun.Size = New System.Drawing.Size(45, 17)
+        Me.Sun.Size = New Size(45, 17)
         Me.Sun.TabIndex = 11
         Me.Sun.Text = "Sun"
         Me.Sun.UseVisualStyleBackColor = True
@@ -1475,9 +1480,9 @@ Public Class Setup
         'Sat
         '
         Me.Sat.AutoSize = True
-        Me.Sat.Location = New System.Drawing.Point(63, 109)
+        Me.Sat.Location = New Point(63, 109)
         Me.Sat.Name = "Sat"
-        Me.Sat.Size = New System.Drawing.Size(42, 17)
+        Me.Sat.Size = New Size(42, 17)
         Me.Sat.TabIndex = 10
         Me.Sat.Text = "Sat"
         Me.Sat.UseVisualStyleBackColor = True
@@ -1485,18 +1490,18 @@ Public Class Setup
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(173, 13)
+        Me.Label6.Location = New Point(173, 13)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(39, 13)
+        Me.Label6.Size = New Size(39, 13)
         Me.Label6.TabIndex = 4
         Me.Label6.Text = "hour(s)"
         '
         'Fri
         '
         Me.Fri.AutoSize = True
-        Me.Fri.Location = New System.Drawing.Point(8, 109)
+        Me.Fri.Location = New Point(8, 109)
         Me.Fri.Name = "Fri"
-        Me.Fri.Size = New System.Drawing.Size(37, 17)
+        Me.Fri.Size = New Size(37, 17)
         Me.Fri.TabIndex = 9
         Me.Fri.Text = "Fri"
         Me.Fri.UseVisualStyleBackColor = True
@@ -1504,9 +1509,9 @@ Public Class Setup
         'Mon
         '
         Me.Mon.AutoSize = True
-        Me.Mon.Location = New System.Drawing.Point(8, 86)
+        Me.Mon.Location = New Point(8, 86)
         Me.Mon.Name = "Mon"
-        Me.Mon.Size = New System.Drawing.Size(47, 17)
+        Me.Mon.Size = New Size(47, 17)
         Me.Mon.TabIndex = 5
         Me.Mon.Text = "Mon"
         Me.Mon.UseVisualStyleBackColor = True
@@ -1514,9 +1519,9 @@ Public Class Setup
         'Thu
         '
         Me.Thu.AutoSize = True
-        Me.Thu.Location = New System.Drawing.Point(173, 86)
+        Me.Thu.Location = New Point(173, 86)
         Me.Thu.Name = "Thu"
-        Me.Thu.Size = New System.Drawing.Size(45, 17)
+        Me.Thu.Size = New Size(45, 17)
         Me.Thu.TabIndex = 8
         Me.Thu.Text = "Thu"
         Me.Thu.UseVisualStyleBackColor = True
@@ -1524,9 +1529,9 @@ Public Class Setup
         'Tue
         '
         Me.Tue.AutoSize = True
-        Me.Tue.Location = New System.Drawing.Point(63, 86)
+        Me.Tue.Location = New Point(63, 86)
         Me.Tue.Name = "Tue"
-        Me.Tue.Size = New System.Drawing.Size(45, 17)
+        Me.Tue.Size = New Size(45, 17)
         Me.Tue.TabIndex = 6
         Me.Tue.Text = "Tue"
         Me.Tue.UseVisualStyleBackColor = True
@@ -1534,9 +1539,9 @@ Public Class Setup
         'Wed
         '
         Me.Wed.AutoSize = True
-        Me.Wed.Location = New System.Drawing.Point(116, 86)
+        Me.Wed.Location = New Point(116, 86)
         Me.Wed.Name = "Wed"
-        Me.Wed.Size = New System.Drawing.Size(49, 17)
+        Me.Wed.Size = New Size(49, 17)
         Me.Wed.TabIndex = 7
         Me.Wed.Text = "Wed"
         Me.Wed.UseVisualStyleBackColor = True
@@ -1544,10 +1549,10 @@ Public Class Setup
         'CheckBox4
         '
         Me.CheckBox4.AutoSize = True
-        Me.CheckBox4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.CheckBox4.Location = New System.Drawing.Point(0, 0)
+        Me.CheckBox4.Dock = DockStyle.Top
+        Me.CheckBox4.Location = New Point(0, 0)
         Me.CheckBox4.Name = "CheckBox4"
-        Me.CheckBox4.Size = New System.Drawing.Size(445, 17)
+        Me.CheckBox4.Size = New Size(445, 17)
         Me.CheckBox4.TabIndex = 0
         Me.CheckBox4.Text = "Enabled"
         Me.CheckBox4.UseVisualStyleBackColor = True
@@ -1555,22 +1560,22 @@ Public Class Setup
         'TabPage5
         '
         Me.TabPage5.Controls.Add(Me.TextBox1)
-        Me.TabPage5.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage5.Location = New Point(4, 22)
         Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage5.Size = New System.Drawing.Size(448, 396)
+        Me.TabPage5.Padding = New Padding(3)
+        Me.TabPage5.Size = New Size(448, 396)
         Me.TabPage5.TabIndex = 5
         Me.TabPage5.Text = "Change Log"
         Me.TabPage5.UseVisualStyleBackColor = True
         '
         'TextBox1
         '
-        Me.TextBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TextBox1.Location = New System.Drawing.Point(3, 3)
+        Me.TextBox1.Dock = DockStyle.Fill
+        Me.TextBox1.Location = New Point(3, 3)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TextBox1.Size = New System.Drawing.Size(442, 390)
+        Me.TextBox1.ScrollBars = ScrollBars.Vertical
+        Me.TextBox1.Size = New Size(442, 390)
         Me.TextBox1.TabIndex = 0
         Me.TextBox1.Text = resources.GetString("TextBox1.Text")
         '
@@ -1578,11 +1583,11 @@ Public Class Setup
         '
         Me.Controls.Add(Me.SkyIT_Tab)
         Me.Name = "Setup"
-        Me.Size = New System.Drawing.Size(456, 422)
+        Me.Size = New Size(456, 422)
         Me.SkyIT_Tab.ResumeLayout(False)
         Me.tabPage3.ResumeLayout(False)
         Me.tabPage3.PerformLayout()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown2, ISupportInitialize).EndInit()
         Me.TabPage6.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
@@ -1600,7 +1605,7 @@ Public Class Setup
         Me.Panel3.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown1, ISupportInitialize).EndInit()
         Me.TabPage5.ResumeLayout(False)
         Me.TabPage5.PerformLayout()
         Me.ResumeLayout(False)
@@ -1655,7 +1660,7 @@ Public Class Setup
         End Try
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
         If Settings.IsGrabbing = False Then
             listViewStatus.Items.Clear()
             Dim param(0) As Boolean
@@ -1689,7 +1694,7 @@ Public Class Setup
 
     End Sub
 
-    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+    Private Sub Button4_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button4.Click
 
         Try
             If CatByte1.Text <> "" And CatByte1.Text <> "0" Then Settings.SetCategory(Convert.ToInt32(CatByte1.Text), CatText1.Text)
@@ -1819,7 +1824,7 @@ Public Class Setup
         Settings.IsLoading = False
         layer = Nothing
 
-        Dim rr As New IO.StringReader(My.Settings.Regions)
+        Dim rr As New StringReader(My.Settings.Regions)
         Dim ttt As New List(Of String)
         Dim lines() As String = My.Settings.Regions.Split(vbNewLine)
         For Each str As String In lines
@@ -2298,48 +2303,48 @@ Public Class Setup
         End If
     End Sub
 
-    Private Sub SkyUK_Region_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SkyUK_Region.SelectedIndexChanged
+    Private Sub SkyUK_Region_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles SkyUK_Region.SelectedIndexChanged
         Dim region As Region = regions(SkyUK_Region.SelectedIndex)
         Settings.RegionID = region.RegionID
         Settings.BouquetID = region.BouquetID
         Settings.RegionIndex = SkyUK_Region.SelectedIndex
     End Sub
 
-    Private Sub TextBox10_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub TextBox10_TextChanged(ByVal sender As Object, ByVal e As EventArgs)
         Settings.SymbolRate = TextBox10.Text
     End Sub
 
-    Private Sub TextBox5_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub TextBox5_TextChanged(ByVal sender As Object, ByVal e As EventArgs)
         Settings.TransportID = TextBox5.Text
 
     End Sub
 
-    Private Sub TextBox4_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub TextBox4_TextChanged(ByVal sender As Object, ByVal e As EventArgs)
         Settings.ServiceID = TextBox4.Text
     End Sub
 
-    Private Sub MpComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MpComboBox1.SelectedIndexChanged
+    Private Sub MpComboBox1_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles MpComboBox1.SelectedIndexChanged
         Settings.modulation = MpComboBox1.SelectedIndex
     End Sub
 
-    Private Sub mpDisEqc1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mpDisEqc1.SelectedIndexChanged
+    Private Sub mpDisEqc1_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles mpDisEqc1.SelectedIndexChanged
         Settings.DiseqC = mpDisEqc1.SelectedIndex
     End Sub
 
-    Private Sub MpComboBox2_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MpComboBox2.SelectedIndexChanged
+    Private Sub MpComboBox2_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles MpComboBox2.SelectedIndexChanged
         Settings.polarisation = MpComboBox2.SelectedIndex
     End Sub
 
-    Private Sub TextBox6_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub TextBox6_TextChanged(ByVal sender As Object, ByVal e As EventArgs)
         Settings.frequency = TextBox6.Text
     End Sub
 
-    Private Sub CheckBox4_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox4.CheckedChanged
+    Private Sub CheckBox4_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles CheckBox4.CheckedChanged
         Settings.AutoUpdate = CheckBox4.Checked
         Panel1.Visible = Settings.AutoUpdate
     End Sub
 
-    Private Sub CheckBox5_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox5.CheckedChanged
+    Private Sub CheckBox5_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles CheckBox5.CheckedChanged
         Settings.EveryHour = CheckBox5.Checked
         Settings.OnDaysAt = Not CheckBox5.Checked
         CheckBox6.Checked = Not CheckBox5.Checked
@@ -2354,7 +2359,7 @@ Public Class Setup
         NumericUpDown1.Enabled = CheckBox5.Checked
     End Sub
 
-    Private Sub CheckBox6_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox6.CheckedChanged
+    Private Sub CheckBox6_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles CheckBox6.CheckedChanged
         Settings.OnDaysAt = CheckBox6.Checked
         Settings.EveryHour = Not CheckBox6.Checked
         CheckBox5.Checked = Not CheckBox6.Checked
@@ -2369,43 +2374,43 @@ Public Class Setup
         NumericUpDown1.Enabled = CheckBox5.Checked
     End Sub
 
-    Private Sub Mon_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Mon.CheckedChanged
+    Private Sub Mon_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Mon.CheckedChanged
         Settings.Mon = Mon.Checked
     End Sub
 
-    Private Sub Tue_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Tue.CheckedChanged
+    Private Sub Tue_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Tue.CheckedChanged
         Settings.Tue = Tue.Checked
     End Sub
 
-    Private Sub Wed_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Wed.CheckedChanged
+    Private Sub Wed_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Wed.CheckedChanged
         Settings.Wed = Wed.Checked
     End Sub
 
-    Private Sub Thu_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Thu.CheckedChanged
+    Private Sub Thu_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Thu.CheckedChanged
         Settings.Thu = Thu.Checked
     End Sub
 
-    Private Sub Fri_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Fri.CheckedChanged
+    Private Sub Fri_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Fri.CheckedChanged
         Settings.Fri = Fri.Checked
     End Sub
 
-    Private Sub Sat_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Sat.CheckedChanged
+    Private Sub Sat_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Sat.CheckedChanged
         Settings.Sat = Sat.Checked
     End Sub
 
-    Private Sub Sun_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Sun.CheckedChanged
+    Private Sub Sun_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Sun.CheckedChanged
         Settings.Sun = Sun.Checked
     End Sub
 
-    Private Sub NumericUpDown1_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NumericUpDown1.ValueChanged
+    Private Sub NumericUpDown1_ValueChanged(ByVal sender As Object, ByVal e As EventArgs) Handles NumericUpDown1.ValueChanged
         Settings.UpdateInterval = NumericUpDown1.Value
     End Sub
 
-    Private Sub DateTimePicker1_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DateTimePicker1.ValueChanged
+    Private Sub DateTimePicker1_ValueChanged(ByVal sender As Object, ByVal e As EventArgs) Handles DateTimePicker1.ValueChanged
         Settings.UpdateTime = DateTimePicker1.Value.ToString
     End Sub
 
-    Private Sub ChannelMap_ItemCheck(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ChannelMap.ItemCheck
+    Private Sub ChannelMap_ItemCheck(ByVal sender As Object, ByVal e As ItemCheckEventArgs) Handles ChannelMap.ItemCheck
         If Settings.IsLoading = False Then
             Dim listofmap As New List(Of Integer)
             If ChannelMap.Items.Count > 0 Then
@@ -2431,83 +2436,83 @@ Public Class Setup
         End If
     End Sub
 
-    Private Sub NumericUpDown2_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub NumericUpDown2_ValueChanged(ByVal sender As Object, ByVal e As EventArgs)
         Settings.GrabTime = NumericUpDown2.Value
     End Sub
 
-    Private Sub txt_Move_Old_Group_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt_Move_Old_Group.TextChanged
+    Private Sub txt_Move_Old_Group_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txt_Move_Old_Group.TextChanged
         Settings.OldChannelFolder = txt_Move_Old_Group.Text
     End Sub
 
-    Private Sub TextBox6_TextChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox6.TextChanged
+    Private Sub TextBox6_TextChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles TextBox6.TextChanged
         Settings.frequency = TextBox6.Text
     End Sub
 
-    Private Sub TextBox10_TextChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox10.TextChanged
+    Private Sub TextBox10_TextChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles TextBox10.TextChanged
         Settings.SymbolRate = TextBox10.Text
 
     End Sub
 
-    Private Sub TextBox5_TextChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox5.TextChanged
+    Private Sub TextBox5_TextChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles TextBox5.TextChanged
         Settings.TransportID = TextBox5.Text
 
     End Sub
 
-    Private Sub TextBox4_TextChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox4.TextChanged
+    Private Sub TextBox4_TextChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles TextBox4.TextChanged
         Settings.ServiceID = TextBox4.Text
     End Sub
 
-    Private Sub CheckBox8_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox8.CheckedChanged
+    Private Sub CheckBox8_CheckedChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles CheckBox8.CheckedChanged
         Settings.IgnoreScrambled = CheckBox8.Checked
     End Sub
 
-    Private Sub CheckBox7_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox7.CheckedChanged
+    Private Sub CheckBox7_CheckedChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles CheckBox7.CheckedChanged
         Settings.UseNotSetModSD = CheckBox7.Checked
     End Sub
 
-    Private Sub chk_AutoUpdate_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chk_AutoUpdate.CheckedChanged
+    Private Sub chk_AutoUpdate_CheckedChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles chk_AutoUpdate.CheckedChanged
         Settings.UpdateChannels = chk_AutoUpdate.Checked
     End Sub
 
-    Private Sub CheckBox2_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox2.CheckedChanged
+    Private Sub CheckBox2_CheckedChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles CheckBox2.CheckedChanged
         Settings.UpdateEPG = CheckBox2.Checked
     End Sub
 
-    Private Sub chk_SkyNumbers_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chk_SkyNumbers.CheckedChanged
+    Private Sub chk_SkyNumbers_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chk_SkyNumbers.CheckedChanged
         Settings.UseSkyNumbers = chk_SkyNumbers.Checked
     End Sub
 
-    Private Sub chk_SkyCategories_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chk_SkyCategories.CheckedChanged
+    Private Sub chk_SkyCategories_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chk_SkyCategories.CheckedChanged
         Settings.UseSkyCategories = chk_SkyCategories.Checked
     End Sub
 
-    Private Sub chk_SkyRegions_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chk_SkyRegions.CheckedChanged
+    Private Sub chk_SkyRegions_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chk_SkyRegions.CheckedChanged
         Settings.UseSkyRegions = chk_SkyRegions.Checked
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox1.CheckedChanged
+    Private Sub CheckBox1_CheckedChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles CheckBox1.CheckedChanged
         Settings.ReplaceSDwithHD = CheckBox1.Checked
     End Sub
 
-    Private Sub CheckBox3_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox3.CheckedChanged
+    Private Sub CheckBox3_CheckedChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles CheckBox3.CheckedChanged
         Settings.useExtraInfo = CheckBox3.Checked
     End Sub
 
-    Private Sub chk_DeleteOld_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chk_DeleteOld.CheckedChanged
+    Private Sub chk_DeleteOld_CheckedChanged_1(ByVal sender As Object, ByVal e As EventArgs) Handles chk_DeleteOld.CheckedChanged
         If chk_DeleteOld.Checked Then
             chk_MoveOld.Checked = False
             Settings.DeleteOldChannels = True
         End If
     End Sub
 
-    Private Sub chk_MoveOld_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chk_MoveOld.CheckedChanged
+    Private Sub chk_MoveOld_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles chk_MoveOld.CheckedChanged
         If chk_MoveOld.Checked Then
             chk_DeleteOld.Checked = False
             Settings.DeleteOldChannels = False
         End If
     End Sub
 
-    Private Sub CheckBox9_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox9.CheckedChanged
+    Private Sub CheckBox9_CheckedChanged(ByVal sender As Object, ByVal e As EventArgs) Handles CheckBox9.CheckedChanged
         Settings.UseNotSetModHD = CheckBox9.Checked
     End Sub
 

@@ -1,17 +1,17 @@
 ﻿Imports Custom_Data_Grabber
+Imports SetupTv
+Imports System.Threading
 Imports TvDatabase
 Imports TvLibrary.Channels
 Imports TvLibrary.Epg
 Imports TvLibrary.Interfaces
 Imports TvEngine
-
 Imports System.Text
 Imports System.Collections.Generic
-Imports System.Collections.Specialized
-Imports SetupTv
 Imports TvControl
 Imports TvLibrary.Log
 Imports DirectShowLib.BDA
+Imports TvService
 
 Public Class Sky_UkGrabber
 
@@ -33,31 +33,31 @@ Public Class Sky_UkGrabber
                     If (Now.Hour = settings.UpdateTime.Hour) And settings.LastUpdate.Date <> Now.Date Then
                         If Now.Minute >= settings.UpdateTime.Minute And Now.Minute <= settings.UpdateTime.Minute + 10 Then
                             Select Case Now.DayOfWeek
-                                Case System.DayOfWeek.Monday
+                                Case DayOfWeek.Monday
                                     If settings.Mon = True Then
                                         skygrabber.Grab()
                                     End If
-                                Case System.DayOfWeek.Tuesday
+                                Case DayOfWeek.Tuesday
                                     If settings.Tue = True Then
                                         skygrabber.Grab()
                                     End If
-                                Case System.DayOfWeek.Wednesday
+                                Case DayOfWeek.Wednesday
                                     If settings.Wed = True Then
                                         skygrabber.Grab()
                                     End If
-                                Case System.DayOfWeek.Thursday
+                                Case DayOfWeek.Thursday
                                     If settings.Thu = True Then
                                         skygrabber.Grab()
                                     End If
-                                Case System.DayOfWeek.Friday
+                                Case DayOfWeek.Friday
                                     If settings.Fri = True Then
                                         skygrabber.Grab()
                                     End If
-                                Case System.DayOfWeek.Saturday
+                                Case DayOfWeek.Saturday
                                     If settings.Sat = True Then
                                         skygrabber.Grab()
                                     End If
-                                Case System.DayOfWeek.Sunday
+                                Case DayOfWeek.Sunday
                                     If settings.Sun = True Then
                                         skygrabber.Grab()
                                     End If
@@ -70,31 +70,31 @@ Public Class Sky_UkGrabber
 
     End Sub
 
-    Public ReadOnly Property Author As String Implements TvEngine.ITvServerPlugin.Author
+    Public ReadOnly Property Author As String Implements ITvServerPlugin.Author
         Get
             Return "DJBlu"
         End Get
     End Property
 
-    Public ReadOnly Property MasterOnly As Boolean Implements TvEngine.ITvServerPlugin.MasterOnly
+    Public ReadOnly Property MasterOnly As Boolean Implements ITvServerPlugin.MasterOnly
         Get
             Return True
         End Get
     End Property
 
-    Public ReadOnly Property Name As String Implements TvEngine.ITvServerPlugin.Name
+    Public ReadOnly Property Name As String Implements ITvServerPlugin.Name
         Get
             Return "Sky NZ Grabber"
         End Get
     End Property
 
-    Public ReadOnly Property Setup As SetupTv.SectionSettings Implements TvEngine.ITvServerPlugin.Setup
+    Public ReadOnly Property Setup As SectionSettings Implements ITvServerPlugin.Setup
         Get
             Return New Setup()
         End Get
     End Property
 
-    Public Sub Start(ByVal controller As TvControl.IController) Implements TvEngine.ITvServerPlugin.Start
+    Public Sub Start(ByVal controller As IController) Implements ITvServerPlugin.Start
         skygrabber = New SkyGrabber
         settings = New Settings
         settings.IsGrabbing = False
@@ -105,13 +105,13 @@ Public Class Sky_UkGrabber
 
     End Sub
 
-    Public Sub Stopit() Implements TvEngine.ITvServerPlugin.Stop
+    Public Sub Stopit() Implements ITvServerPlugin.Stop
         timer.Start()
         settings = Nothing
         skygrabber = Nothing
     End Sub
 
-    Public ReadOnly Property Version As String Implements TvEngine.ITvServerPlugin.Version
+    Public ReadOnly Property Version As String Implements ITvServerPlugin.Version
         Get
             Return "1.2.0.27"
         End Get
@@ -957,14 +957,12 @@ Public Class SkyGrabber
             If (IsTitleDataCarouselOnPidComplete(pid)) Then
                 Return
             End If
-
-            If (DoesTidCarryEpgTitleData(Custom_Data_Grabber.Section.table_id) = False) Then
+            If (DoesTidCarryEpgTitleData(section.table_id) = False) Then
                 Return
             End If
-
-            Dim buffer() As Byte = Custom_Data_Grabber.Section.Data
+            Dim buffer() As Byte = section.Data
             Dim totalLength As Integer = (((buffer(1) And &HF) * 256) + buffer(2)) - 2
-            If (Custom_Data_Grabber.Section.section_length < 20) Then
+            If (section.section_length < 20) Then
                 Return
             End If
             Dim channelId As Long = (buffer(3) * (2 ^ 8)) + buffer(4)
@@ -978,16 +976,10 @@ Public Class SkyGrabber
                 If (iterationCounter > 512) Then
                     Return
                 End If
-
-
                 iterationCounter += 1
-
                 Dim eventId As Integer = (buffer(currentTitleItem + 0) * (2 ^ 8)) + buffer(currentTitleItem + 1)
-
-
                 Dim headerType As Double = (buffer(currentTitleItem + 2) And &HF0) >> 4
                 Dim bodyLength As Integer = ((buffer(currentTitleItem + 2) And &HF) * (2 ^ 8)) + buffer(currentTitleItem + 3)
-
                 Dim carouselLookupId As String = channelId.ToString & ":" & eventId.ToString
 
                 OnTitleReceived(pid, carouselLookupId)
@@ -1093,7 +1085,7 @@ Public Class SkyGrabber
                 'LogDebug("decode nit desc1:%x len:%d", indicator,x)
 
                 If (indicator = &H40) Then
-                    Dim netWorkName As String = System.Text.Encoding.GetEncoding("iso-8859-1").GetString(buf, pointer + 2, x - 2)
+                    Dim netWorkName As String = Encoding.GetEncoding("iso-8859-1").GetString(buf, pointer + 2, x - 2)
                 End If
                 l1 -= x
                 pointer += x
@@ -1313,7 +1305,7 @@ Public Class SkyGrabber
             RaiseEvent OnMessage("", False)
             Dim pair As KeyValuePair(Of Integer, Sky_Channel)
             For Each pair In Channels
-                Dim currentDetail As TuningDetail
+                Dim currentDetail As TuningDetail = Nothing
                 ChannelsAdded += 1
                 RaiseEvent OnMessage("(" & ChannelsAdded & "/" & Channels.Count & ") Channels sorted", True)
                 Dim ScannedChannel As Sky_Channel = pair.Value
@@ -1343,17 +1335,19 @@ Public Class SkyGrabber
                 End If
                 Dim visibleinguide As Boolean
                 Dim channelnumber As Integer
-                Dim checker As Channel = _layer.GetChannelbyExternalID(ScannedChannel.NID & ":" & ScannedChannel.ChannelID.ToString)
-                If Not checker Is Nothing Then
-                    Dim Channels As List(Of TuningDetail) = checker.ReferringTuningDetail
-                    For Each Chann As TuningDetail In Channels
-                        If Chann.ChannelType = 3 And (Chann.NetworkId = 169 Or Chann.NetworkId = 47) Then
-                            currentDetail = Chann
+                Dim channelbyExternalID As Channel = _layer.GetChannelbyExternalID(ScannedChannel.NID & ":" & ScannedChannel.ChannelID.ToString)
+                'currentDetail = Nothing
+                If (Not channelbyExternalID Is Nothing) Then
+                    Dim Channels As List(Of TuningDetail) = DirectCast(channelbyExternalID.ReferringTuningDetail, List(Of TuningDetail))
+                    Dim currentdetail2 As TuningDetail
+                    For Each currentdetail2 In Channels
+                        If currentdetail2.ChannelType = 3 And (currentdetail2.NetworkId = 169 Or currentdetail2.NetworkId = 47) Then
+                            currentDetail = currentdetail2
                             Exit For
                         End If
                     Next
                 End If
-                If currentDetail Is Nothing Then
+                If (currentDetail Is Nothing) Then
                     GoTo addnewchannel 'add new channel
                 End If
 
@@ -1396,7 +1390,7 @@ label_something1:
                 DVBSChannel.LogicalChannelNumber = channelnumber
                 dbchannel.VisibleInGuide = visibleinguide
                 If (NIT.isS2 And UseModNotSetHD) Or (NIT.isS2 = False And UseModNotSetSD) Then
-                    DVBSChannel.ModulationType = DirectShowLib.BDA.ModulationType.ModNotSet
+                    DVBSChannel.ModulationType = ModulationType.ModNotSet
                 Else
                     Select Case NIT.Modulation
                         Case 1
@@ -1490,28 +1484,28 @@ AddNewChannel:
                 checkDVBSChannel.BandType = BandType.Universal
                 checkDVBSChannel.Frequency = nit2.Frequency
                 checkDVBSChannel.SymbolRate = nit2.Symbolrate
-                checkDVBSChannel.InnerFecRate = DirectCast(nit2.FECInner, DirectShowLib.BDA.BinaryConvolutionCodeRate)
+                checkDVBSChannel.InnerFecRate = DirectCast(nit2.FECInner, BinaryConvolutionCodeRate)
                 If (nit2.isS2 And UseModNotSetHD) Or (nit2.isS2 = False And UseModNotSetSD) Then
-                    checkDVBSChannel.ModulationType = DirectShowLib.BDA.ModulationType.ModNotSet
+                    checkDVBSChannel.ModulationType = ModulationType.ModNotSet
                 Else
                     Select Case nit2.Modulation
                         Case 1
                             If nit2.isS2 <= 0 Then
                                 Exit Select
                             End If
-                            checkDVBSChannel.ModulationType = DirectShowLib.BDA.ModulationType.ModNbcQpsk
+                            checkDVBSChannel.ModulationType = ModulationType.ModNbcQpsk
                             GoTo label_something5
                         Case 2
                             If nit2.isS2 <= 0 Then
                                 GoTo label_something4
                             End If
-                            checkDVBSChannel.ModulationType = DirectShowLib.BDA.ModulationType.ModNbc8Psk
+                            checkDVBSChannel.ModulationType = ModulationType.ModNbc8Psk
                             GoTo label_something5
                         Case Else
-                            checkDVBSChannel.ModulationType = DirectShowLib.BDA.ModulationType.ModNotDefined
+                            checkDVBSChannel.ModulationType = ModulationType.ModNotDefined
                             GoTo label_something5
                     End Select
-                    checkDVBSChannel.ModulationType = DirectShowLib.BDA.ModulationType.ModQpsk
+                    checkDVBSChannel.ModulationType = ModulationType.ModQpsk
                 End If
                 GoTo label_something5
 Label_something4:
@@ -1523,7 +1517,7 @@ label_something5:
                     checkDVBSChannel.Rolloff = DirectCast(nit2.RollOff, RollOff)
                 End If
                 checkDVBSChannel.PmtPid = 0
-                checkDVBSChannel.Polarisation = DirectCast(nit2.Polarisation, DirectShowLib.BDA.Polarisation)
+                checkDVBSChannel.Polarisation = DirectCast(nit2.Polarisation, Polarisation)
                 checkDVBSChannel.TransportId = ScannedChannel.TID
                 checkDVBSChannel.SwitchingFrequency = SwitchingFrequency 'Add Option for user to enter - needs to be added to designer
                 haschanged = True
@@ -1910,7 +1904,7 @@ label_something6:
     End Sub
 
     Public Sub UpdateEPG()
-        Dim TVController1 As TvService.TVController = New TvService.TVController
+        Dim TVController1 As TVController = New TVController
         Dim DBUpd As New EpgDBUpdater(TVController1, "Sky TV EPG Updater", False)
         Dim ChannelstoUpdate As New List(Of EpgChannel)
         Dim AddExtraInfo As Boolean = Settings.useExtraInfo
@@ -1942,7 +1936,7 @@ label_something6:
                             End If
 
                             Dim ProgtoAdd As New Program(DBChannel.IdChannel, programStartTime, programEndTime, Eventtouse.Title _
-                                                         , desc, Settings.GetTheme(Convert.ToInt32(Eventtouse.Category)), TvDatabase.Program.ProgramState.None,
+                                                         , desc, Settings.GetTheme(Convert.ToInt32(Eventtouse.Category)), Program.ProgramState.None,
                                                          New Date(1900, 1, 1), "", "", "", "", 0, Eventtouse.ParentalCategory, 0, Eventtouse.SeriesID.ToString(), Eventtouse.seriesTermination)
                             listofprogs.Add(ProgtoAdd)
                         End If
@@ -1950,7 +1944,7 @@ label_something6:
                 End If
 
             Next
-            _layer.InsertPrograms(listofprogs, System.Threading.ThreadPriority.Highest)
+            _layer.InsertPrograms(listofprogs, ThreadPriority.Highest)
         Else
             For Each SkyChannelPair As KeyValuePair(Of Integer, Sky_Channel) In Channels
                 Dim skyChannel As Sky_Channel = SkyChannelPair.Value
@@ -1997,10 +1991,6 @@ label_something6:
                 ChanNumber += 1
             Next
         End If
-
-
-
-
         TVController1 = Nothing
         DBUpd = Nothing
         RaiseEvent OnMessage("EPG Update Complete", False)
@@ -2008,7 +1998,7 @@ label_something6:
 
     Public Event OnActivateControls()
 
-    Sub UpdateDataBase(ByVal err As Boolean, ByVal errormessage As String) Handles Sky.OnComplete
+    Public Sub UpdateDataBase(ByVal err As Boolean, ByVal errormessage As String) Handles Sky.OnComplete
         If err = False Then
             If Channels.Count < 100 Then
                 RaiseEvent OnMessage("Error : Less than 100 channels found, Grabber found : " & Channels.Count, False)
@@ -2038,6 +2028,7 @@ exitsub:
         Settings.IsGrabbing = False
 
     End Sub
+
     Private Sub DeleteOldChannels()
         Dim UseRegions As Boolean = Settings.UseSkyRegions
         Dim DeleteOld As Boolean = Settings.DeleteOldChannels
@@ -2128,7 +2119,7 @@ exitsub:
         End If
         GrabEPG = Settings.UpdateEPG
 
-        Dim Channel As TvDatabase.Channel
+        Dim Channel As Channel
         DVBSChannel = New DVBSChannel()
 
         Dim channelss As List(Of Channel) = _layer.GetChannelsByName("Sky UK Grabber")
@@ -2146,7 +2137,7 @@ exitsub:
             DVBSChannel.InnerFecRate = -1
             DVBSChannel.IsRadio = True
             DVBSChannel.IsTv = False
-            DVBSChannel.ModulationType = CType(Settings.modulation - 1, DirectShowLib.BDA.ModulationType)
+            DVBSChannel.ModulationType = CType(Settings.modulation - 1, ModulationType)
             DVBSChannel.Name = "Sky NZ Grabber"
             DVBSChannel.NetworkId = Settings.NID
             DVBSChannel.Pilot = -1
@@ -2203,7 +2194,7 @@ exitsub:
         If Settings.IsGrabbing = False Then
             Settings.IsGrabbing = True
             Reset()
-            Dim back As Threading.Thread = New Threading.Thread(AddressOf Grabit)
+            Dim back As Thread = New Thread(AddressOf Grabit)
             back.Start()
         End If
 
@@ -2613,6 +2604,7 @@ nextloop1:
             Return (sourceEncoding.GetString(editedBytes, 0, editedLength))
         Catch e As ArgumentException
             RaiseEvent OnMessage("** ERROR DECODING STRING - SEE COLLECTION LOG **", replace)
+            Return Nothing
         End Try
     End Function
 
@@ -2824,17 +2816,17 @@ nextloop1:
             End If
 
             '	Validate table id
-            If Not DoesTidCarryEpgSummaryData(Custom_Data_Grabber.Section.table_id) Then
+            If Not DoesTidCarryEpgSummaryData(section.table_id) Then
                 Return
             End If
 
-            Dim buffer As Byte() = Custom_Data_Grabber.Section.Data
+            Dim buffer As Byte() = section.Data
 
             '	Total length of summary data (2 less for this length field)
             Dim totalLength As Integer = (((buffer(1) And &HF) * 256) + buffer(2)) - 2
 
             '	If this section is a valid length (14 absolute minimum with 1 blank summary)
-            If (Custom_Data_Grabber.Section.section_length < 14) Then
+            If (section.section_length < 14) Then
                 Return
             End If
             '	Get the channel id that this section's summary data relates to
